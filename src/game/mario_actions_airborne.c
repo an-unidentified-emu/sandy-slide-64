@@ -1219,7 +1219,7 @@ s32 act_soft_bonk(struct MarioState *m) {
 
     play_knockback_sound(m);
 
-    common_air_knockback_step(m, ACT_FREEFALL_LAND, ACT_HARD_BACKWARD_GROUND_KB, MARIO_ANIM_GENERAL_FALL, m->forwardVel);
+    common_air_knockback_step(m, ACT_FREEFALL_LAND, ACT_HARD_BACKWARD_GROUND_KB, MARIO_ANIM_GENERAL_FALL, -13.0f);
     return FALSE;
 }
 
@@ -1274,13 +1274,14 @@ s32 act_air_hit_wall(struct MarioState *m) {
     }
 
     if (++(m->actionTimer) <= 2) {
+        
         if (m->input & INPUT_A_PRESSED) {
             m->vel[1] = 52.0f;
             m->faceAngle[1] += 0x8000;
             return set_mario_action(m, ACT_WALL_KICK_AIR, 0);
         }
     } else if (m->forwardVel >= 38.0f) {
-        m->wallKickTimer = 5;
+        m->wallKickTimer = 4;
         if (m->vel[1] > 0.0f) {
             m->vel[1] = 0.0f;
         }
@@ -1288,20 +1289,20 @@ s32 act_air_hit_wall(struct MarioState *m) {
         m->particleFlags |= PARTICLE_VERTICAL_STAR;
         return set_mario_action(m, ACT_BACKWARD_AIR_KB, 0);
     } else {
-        m->wallKickTimer = 5;
+        m->wallKickTimer = 4;
         if (m->vel[1] > 0.0f) {
             m->vel[1] = 0.0f;
         }
 
         if (m->forwardVel > 8.0f) {
-            mario_set_forward_vel(m, -8.0f);
+            //mario_set_forward_vel(m, -8.0f);
         }
         return set_mario_action(m, ACT_SOFT_BONK, 0);
     }
 
-    set_mario_animation(m, MARIO_ANIM_START_WALLKICK);
+    //set_mario_animation(m, MARIO_ANIM_START_WALLKICK);
 
-    return TRUE;
+    return FALSE;
 }
 
 s32 act_forward_rollout(struct MarioState *m) {
@@ -1387,9 +1388,9 @@ s32 act_backward_rollout(struct MarioState *m) {
 }
 
 s32 act_butt_slide_air(struct MarioState *m) {
-    if (++(m->actionTimer) > 30 && m->pos[1] - m->floorHeight > 500.0f) {
-        return set_mario_action(m, ACT_FREEFALL, 1);
-    }
+    //if (++(m->actionTimer) > 30 && m->pos[1] - m->floorHeight > 500.0f) {
+    //    return set_mario_action(m, ACT_FREEFALL, 1);
+    //}
 
     update_air_with_turn(m);
 
@@ -1405,11 +1406,7 @@ s32 act_butt_slide_air(struct MarioState *m) {
             break;
 
         case AIR_STEP_HIT_WALL:
-            if (m->vel[1] > 0.0f) {
-                m->vel[1] = 0.0f;
-            }
-            m->particleFlags |= PARTICLE_VERTICAL_STAR;
-            set_mario_action(m, ACT_BACKWARD_AIR_KB, 0);
+            mario_bonk_reflection(m, FALSE);
             break;
 
         case AIR_STEP_HIT_LAVA_WALL:
