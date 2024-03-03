@@ -381,6 +381,15 @@ struct MarioBodyState {
     // u8 filler[4];
 };
 
+struct FloorCheckpoint
+{
+    Vec3f pos;
+    s16 yaw;
+    s16 level;
+    u8 area;
+    struct Surface *floor;
+};
+
 struct MarioState {
     /*0x00*/ u16 playerID;
     /*0x02*/ u16 input;
@@ -459,6 +468,7 @@ struct MarioState {
              s16 moveYaw;
              s16 ceilYaw;
              s16 wallYaw;
+            struct FloorCheckpoint floorCheckpoint;
     // -- HackerSM64 MarioState fields end --
 };
 

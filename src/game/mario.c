@@ -945,6 +945,10 @@ u32 set_mario_action_cutscene(struct MarioState *m, u32 action, UNUSED u32 actio
  * specific function if needed.
  */
 u32 set_mario_action(struct MarioState *m, u32 action, u32 actionArg) {
+    if (m->action == ACT_FLOOR_CHECKPOINT_WARP_OUT || m->action == ACT_FLOOR_CHECKPOINT_WARP_IN) {
+        return FALSE;
+    }
+
     switch (action & ACT_GROUP_MASK) {
         case ACT_GROUP_MOVING:    action = set_mario_action_moving(   m, action, actionArg); break;
         case ACT_GROUP_AIRBORNE:  action = set_mario_action_airborne( m, action, actionArg); break;
@@ -1796,6 +1800,91 @@ s32 execute_mario_action(UNUSED struct Object *obj) {
     return ACTIVE_PARTICLE_NONE;
 }
 
+void check_mario_floor_checkpoint(struct MarioState *m) {
+    if (
+        m->floor->force == FLOOR_CHECKPOINT_FORCE &&
+        m->floor != m->floorCheckpoint.floor &&
+        !mario_floor_is_slippery(m)
+    ) {
+        surface_center(m->floorCheckpoint.pos, m->floor->vertex1, m->floor->vertex2, m->floor->vertex3);
+        m->floorCheckpoint.yaw = m->faceAngle[1];
+        m->floorCheckpoint.level = gCurrLevelNum;
+        m->floorCheckpoint.area = gCurrAreaIndex;
+        m->floorCheckpoint.floor = m->floor;
+    }
+}
+
+s32 get_checkpoint_action(struct MarioState *m) {
+    if (m->waterLevel > m->pos[1] - 80.0f) return CHECKPOINT_ENDS_IN_WATER;
+    else if (m->floorCheckpoint.floor) return CHECKPOINT_ENDS_ON_GROUND;
+    return CHECKPOINT_ENDS_IN_AIR;
+}
+
+s32 warp_to_checkpoint(struct MarioState *m, s32 damage) {
+    Vec3f displacement;
+    vec3_diff(displacement, m->pos, m->floorCheckpoint.pos);
+
+    vec3f_copy(m->pos, m->floorCheckpoint.pos);
+    vec3s_set(m->faceAngle, 0, m->floorCheckpoint.yaw, 0);
+    vec3_zero(m->vel);
+
+    vec3f_copy(m->marioObj->header.gfx.pos, m->pos);
+    vec3s_copy(m->marioObj->header.gfx.angle, m->faceAngle);
+
+    m->flags |= MARIO_TELEPORTING;
+    m->fadeWarpOpacity = 0;
+
+    if (gMarioState->floorCheckpoint.area != gCurrAreaIndex) {
+        s16 cameraAngle = gMarioState->area->camera->yaw;
+        change_area(gMarioState->floorCheckpoint.area);
+        gMarioState->area = gCurrentArea;
+        warp_camera(displacement[0], displacement[1], displacement[2]);
+        gMarioState->area->camera->yaw = cameraAngle;
+    }
+
+    reset_camera(gCurrentArea->camera);
+
+    switch(get_checkpoint_action(m)) {
+        case CHECKPOINT_ENDS_IN_WATER:
+            set_mario_animation(m, MARIO_ANIM_WATER_IDLE);
+            break;
+        case CHECKPOINT_ENDS_ON_GROUND:
+            set_mario_animation(m, MARIO_ANIM_IDLE_HEAD_CENTER);
+            break;
+        case CHECKPOINT_ENDS_IN_AIR:
+        default:
+            set_mario_animation(m, MARIO_ANIM_GENERAL_FALL);
+            break;
+    }
+
+    m->health -= damage;
+    if (m->health < 0x100) {
+        m->health = 0xFF;
+    }
+
+    play_transition(WARP_TRANSITION_FADE_FROM_COLOR, SLOW_WARP_LEN, 0, 0, 0);
+    m->action = ACT_FLOOR_CHECKPOINT_WARP_IN;
+    m->actionState = 0;
+    m->actionTimer = 0;
+    m->actionArg = 0;
+    return TRUE;
+}
+
+/**************************************************
+ *                  INITIALIZATION                *
+ **************************************************/
+
+void manual_set_checkpoint(struct MarioState *m, Vec3f pos, s16 angle) {
+    vec3f_copy(m->floorCheckpoint.pos, pos);
+    m->floorCheckpoint.yaw = angle;
+    m->floorCheckpoint.level = gCurrLevelNum;
+    m->floorCheckpoint.area = gCurrAreaIndex;
+    m->floorCheckpoint.floor = NULL;
+}
+
+void init_floor_checkpoint(struct MarioState *m) {
+    manual_set_checkpoint(m, m->pos, m->faceAngle[1]);
+}
 /**************************************************
  *                  INITIALIZATION                *
  **************************************************/
@@ -1860,6 +1949,8 @@ void init_mario(void) {
     vec3f_copy(gMarioState->marioObj->header.gfx.pos, gMarioState->pos);
     vec3s_set(gMarioState->marioObj->header.gfx.angle, 0, gMarioState->faceAngle[1], 0);
 
+    init_floor_checkpoint(gMarioState);
+    
     Vec3s capPos;
     if (save_file_get_cap_pos(capPos)) {
         struct Object *capObject = spawn_object(gMarioState->marioObj, MODEL_MARIOS_CAP, bhvNormalCap);

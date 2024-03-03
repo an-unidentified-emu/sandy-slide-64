@@ -410,6 +410,17 @@
 #define	G_TX_NOLOD	0
 #endif
 
+#ifndef MAX
+#define MAX(a, b)				((a) > (b) ? (a) : (b))
+#endif
+
+#ifndef MIN
+#define MIN(a, b)				((a) < (b) ? (a) : (b))
+#endif
+
+#ifndef MIN_MAX
+#define MIN_MAX(a, min, max) (MAX(MIN(a, max), min))
+#endif
 /*
  * G_SETIMG fmt: set image formats
  */

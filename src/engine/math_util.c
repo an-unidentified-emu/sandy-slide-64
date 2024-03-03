@@ -85,6 +85,18 @@ struct CopyMat4 {
     f32 a[0x10];
 };
 
+void surface_center(Vec3f dest, Vec3s vtx1, Vec3s vtx2, Vec3s vtx3) {
+    dest[0] = ((f32)(vtx1[0] + vtx2[0] + vtx3[0])) * 0.33333333f;
+    dest[1] = ((f32)(vtx1[1] + vtx2[1] + vtx3[1])) * 0.33333333f;
+    dest[2] = ((f32)(vtx1[2] + vtx2[2] + vtx3[2])) * 0.33333333f;
+}
+
+void vec3f_center(Vec3f dest, Vec3f v1, Vec3f v2) {
+    dest[0] = (v1[0] + v2[0]) / 2.0f;
+    dest[1] = (v1[1] + v2[1]) / 2.0f;
+    dest[2] = (v1[2] + v2[2]) / 2.0f;
+}
+
 /// Copy matrix 'src' to 'dest' by casting to a struct CopyMat4 pointer.
 void mtxf_copy(Mat4 dest, Mat4 src) {
     *((struct CopyMat4 *) dest) = *((struct CopyMat4 *) src);
@@ -817,6 +829,9 @@ s32 anim_spline_poll(Vec3f result) {
     return hasEnded;
 }
 
+f32 get_relative_position_between_ranges(f32 x, f32 fromA, f32 toA, f32 fromB, f32 toB) {
+    return (x - fromA) / (toA - fromA) * (toB - fromB) + fromB;
+}
 /**************************************************
  *                    RAYCASTING                  *
  **************************************************/
