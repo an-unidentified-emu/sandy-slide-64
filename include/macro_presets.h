@@ -18,6 +18,7 @@ struct MacroPreset MacroObjectPresets[] = {
     {bhvMovingBlueCoin,                 MODEL_BLUE_COIN,                    0}, // macro_moving_blue_coin
     {bhvBlueCoinSliding,                MODEL_BLUE_COIN,                    0}, // macro_sliding_blue_coin - unused
     {bhvRedCoin,                        MODEL_RED_COIN,                     0}, // macro_red_coin
+    {bhvGreenCoin,                      MODEL_GREEN_COIN,                   0}, // macro_red_coin
     {bhvYellowCoin,                     MODEL_YELLOW_COIN,                  0}, // macro_empty_5
     {bhvCoinFormation,                  MODEL_NONE, (                       0                                                            )}, // macro_coin_line_horizontal
     {bhvCoinFormation,                  MODEL_NONE, (                             COIN_FORMATION_FLAG_RING                               )}, // macro_coin_ring_horizontal

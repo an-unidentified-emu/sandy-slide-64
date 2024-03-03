@@ -75,6 +75,12 @@ extern const BehaviorScript bhvDoor[];
 extern const BehaviorScript bhvGrindel[];
 extern const BehaviorScript bhvThwomp2[];
 extern const BehaviorScript bhvThwomp[];
+//new
+
+extern const BehaviorScript bhvSidewaysThwomp[];
+extern const BehaviorScript bhvThwimp[];
+extern const BehaviorScript bhvNewThwomp[];
+
 extern const BehaviorScript bhvTumblingBridgePlatform[];
 extern const BehaviorScript bhvWfTumblingBridge[];
 extern const BehaviorScript bhvBbhTumblingBridge[];
@@ -402,6 +408,10 @@ extern const BehaviorScript bhvStar[];
 extern const BehaviorScript bhvStarSpawnCoordinates[];
 extern const BehaviorScript bhvHiddenRedCoinStar[];
 extern const BehaviorScript bhvRedCoin[];
+//new
+extern const BehaviorScript bhvHiddenGreenCoinStar[];
+extern const BehaviorScript bhvGreenCoin[];
+
 extern const BehaviorScript bhvBowserCourseRedCoinStar[];
 extern const BehaviorScript bhvHiddenStar[];
 extern const BehaviorScript bhvHiddenStarTrigger[];

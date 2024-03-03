@@ -87,3 +87,99 @@ void bhv_red_coin_loop(void) {
         o->oInteractStatus = INT_STATUS_NONE;
     }
 }
+
+
+/**
+ * Green coin's hitbox details.
+ */
+static struct ObjectHitbox sGreenCoinHitbox = {
+    /* interactType:      */ INTERACT_COIN,
+    /* downOffset:        */ 0,
+    /* damageOrCoinValue: */ 3,
+    /* health:            */ 0,
+    /* numLootCoins:      */ 0,
+    /* radius:            */ 100,
+    /* height:            */ 64,
+    /* hurtboxRadius:     */ 0,
+    /* hurtboxHeight:     */ 0,
+};
+
+/**
+ * Red coin initialization function. Sets the coin's hitbox and parent object.
+ */
+void bhv_green_coin_init(void) {
+    // Set the red coins to have a parent of the closest red coin star.
+    struct Object *hiddenGreenCoinStar = cur_obj_nearest_object_with_behavior(bhvHiddenGreenCoinStar);
+    if (hiddenGreenCoinStar != NULL) {
+        o->parentObj = hiddenGreenCoinStar;
+    } else {
+        o->parentObj = NULL;
+    }
+    obj_set_hitbox(o, &sGreenCoinHitbox);
+}
+
+/**
+ * Main behavior for red coins. Primarily controls coin collection noise and spawning
+ * the orange number counter.
+ */
+void bhv_green_coin_loop(void) {
+    if (o->parentObj != NULL && o->parentObj->oHiddenStarTriggerCounter >= o->oBehParams2ndByte){
+        cur_obj_become_tangible();
+        o->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
+        if(o->oSparkle == 0) {
+            spawn_object(o, MODEL_SPARKLES, bhvCoinSparklesSpawner);
+            o->oSparkle = 1;
+        }
+                // If Mario interacted with the object...
+        if (o->oInteractStatus & INT_STATUS_INTERACTED) {
+            // ...and there is a red coin star in the level...
+            if (o->parentObj != NULL) {
+                // ...increment the star's counter.
+                o->parentObj->oHiddenStarTriggerCounter++;
+
+                // Spawn the orange number counter, as long as it isn't the last coin.
+                if (o->parentObj->oHiddenStarTriggerCounter != o->parentObj->oHiddenStarTriggerTotal) {
+                    // Cap visible count to 99
+                    if (o->parentObj->oHiddenStarTriggerCounter > 99) {
+                        spawn_orange_number(9, 28, 0, 0);
+                        spawn_orange_number(9, -28, 0, 0);
+                    }
+                    else if (o->parentObj->oHiddenStarTriggerCounter >= 10) {
+                        spawn_orange_number(o->parentObj->oHiddenStarTriggerCounter % 10, 28, 0, 0);
+                        spawn_orange_number(o->parentObj->oHiddenStarTriggerCounter / 10, -28, 0, 0);
+                    }
+                    else if (o->parentObj->oHiddenStarTriggerCounter == 1){}
+                    else {
+                        spawn_orange_number(o->parentObj->oHiddenStarTriggerCounter-1, 0, 0, 0);
+                    }
+                }
+
+#ifdef JP_RED_COIN_SOUND
+            // For JP version, play an identical sound for all coins.
+            create_sound_spawner(SOUND_GENERAL_RED_COIN);
+#else
+                if (o->parentObj->oHiddenStarTriggerTotal - o->parentObj->oHiddenStarTriggerCounter > 7) {
+                    // Play the first red coin sound until it gets to the final 8
+                    play_sound(SOUND_MENU_COLLECT_RED_COIN, gGlobalSoundSource);
+                }
+                else {
+                    // On all versions but the JP version, each coin collected plays a higher noise.
+                    play_sound(SOUND_MENU_COLLECT_RED_COIN
+                            + (((u8) 7 - (o->parentObj->oHiddenStarTriggerTotal - o->parentObj->oHiddenStarTriggerCounter)) << 16),
+                            gGlobalSoundSource);
+                }
+#endif
+            }
+
+            coin_collected();
+        // Despawn the coin.
+            o->oInteractStatus = INT_STATUS_NONE;
+        }
+    } else {
+        o->oSparkle = 0;
+        cur_obj_become_intangible();
+        o->header.gfx.node.flags |= GRAPH_RENDER_INVISIBLE;
+    }
+}
+
+

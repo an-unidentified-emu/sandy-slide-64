@@ -154,7 +154,7 @@ void piranha_plant_attacked(void) {
 void piranha_plant_act_shrink_and_die(void) {
     if (o->oTimer == 0) {
         cur_obj_play_sound_2(SOUND_OBJ_ENEMY_DEFEAT_SHRINK);
-        o->oPiranhaPlantScale = 1.0f;
+        o->oSparkle = 1.0f;
     }
 
     /**
@@ -163,16 +163,16 @@ void piranha_plant_act_shrink_and_die(void) {
      * this was intentional. However, it is equally plausible that the
      * programmers meant to type `else if`.
      */
-    if (o->oPiranhaPlantScale > 0.0f) {
+    if (o->oSparkle > 0.0f) {
         // Shrink by 0.04f per frame.
-        o->oPiranhaPlantScale = o->oPiranhaPlantScale - 0.04f;
+        o->oSparkle = o->oSparkle - 0.04f;
     } else {
-        o->oPiranhaPlantScale = 0.0f;
+        o->oSparkle = 0.0f;
         cur_obj_spawn_loot_blue_coin();
         o->oAction = PIRANHA_PLANT_ACT_WAIT_TO_RESPAWN;
     }
 
-    cur_obj_scale(o->oPiranhaPlantScale);
+    cur_obj_scale(o->oSparkle);
 
     piranha_plant_reset_when_far(); // see this function's comment
 }
@@ -193,7 +193,7 @@ void piranha_plant_act_wait_to_respawn(void) {
 void piranha_plant_act_respawn(void) {
     cur_obj_init_animation_with_sound(PIRANHA_PLANT_ANIM_SLEEPING);
     if (o->oTimer == 0) {
-        o->oPiranhaPlantScale = 0.3f;
+        o->oSparkle = 0.3f;
     }
 
     /**
@@ -202,14 +202,14 @@ void piranha_plant_act_respawn(void) {
      * sets the Piranha Plant's scale to 0, therefore the Piranha Plant will
      * grow from the ground unconditionally when in this state.
      */
-    if (o->oPiranhaPlantScale < 1.0f) {
+    if (o->oSparkle < 1.0f) {
         // Grow by 0.02f per frame.
-        o->oPiranhaPlantScale += 0.02f;
+        o->oSparkle += 0.02f;
     } else {
-        o->oPiranhaPlantScale = 1.0f;
+        o->oSparkle = 1.0f;
         o->oAction = PIRANHA_PLANT_ACT_IDLE;
     }
-    cur_obj_scale(o->oPiranhaPlantScale);
+    cur_obj_scale(o->oSparkle);
 }
 
 /**

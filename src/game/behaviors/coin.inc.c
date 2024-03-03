@@ -57,6 +57,8 @@ void bhv_yellow_coin_init(void) {
             cur_obj_set_model(MODEL_BLUE_COIN_NO_SHADOW);
         } else if (cur_obj_has_model(MODEL_RED_COIN)) {
             cur_obj_set_model(MODEL_RED_COIN_NO_SHADOW);
+        } else if (cur_obj_has_model(MODEL_GREEN_COIN)) {
+            cur_obj_set_model(MODEL_GREEN_COIN_NO_SHADOW);
 #ifdef IA8_30FPS_COINS
         } else if (cur_obj_has_model(MODEL_SILVER_COIN)) {
             cur_obj_set_model(MODEL_SILVER_COIN_NO_SHADOW);

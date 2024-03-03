@@ -318,6 +318,8 @@
 #define MODEL_HOOT                        0x56        // hoot_geo
 #define MODEL_YOSHI_EGG                   0x57        // yoshi_egg_geo
 #define MODEL_THWOMP                      0x58        // thwomp_geo
+#define MODEL_THWIMP                      0xFF        // thwimp_geo
+#define MODEL_NEW_THWOMP                  0xFE       // new_thwomp_geo
 #define MODEL_HEAVE_HO                    0x59        // heave_ho_geo
 
 // group 2
@@ -544,6 +546,9 @@
 #define MODEL_CHUCKYA                     0xDF        // chuckya_geo
 #define MODEL_WHITE_PUFF                  0xE0        // white_puff_geo
 #define MODEL_TRAJECTORY_MARKER_BALL      0xE1        // bowling_ball_track_geo - duplicate used in SSL Pyramid small sized and as a track ball
+
+#define MODEL_GREEN_COIN                    0xE2        // red_coin_geo
+#define MODEL_GREEN_COIN_NO_SHADOW          0xE3        // red_coin_no_shadow_geo
 
 #ifdef IA8_30FPS_COINS
 #define MODEL_SILVER_COIN                 0xE2        // silver_coin_geo

@@ -1180,6 +1180,51 @@ const BehaviorScript bhvThwomp[] = {
         CALL_NATIVE(load_object_collision_model),
     END_LOOP(),
 };
+//new
+
+//new
+const BehaviorScript bhvSidewaysThwomp[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    LOAD_COLLISION_DATA(new_thwomp_collision),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    ADD_FLOAT(oPosY, 1),
+    SCALE(/*Unused*/ 0, /*Field*/ 140),
+    SET_HOME(),    
+    SET_OBJ_PHYSICS(/*Wall hitbox radius*/ 250, /*Gravity*/ 0, /*Bounciness*/ 0, /*Drag strength*/ 0, /*Friction*/ 0, /*Buoyancy*/ 200, /*Unused*/ 0, 0),
+    SET_FLOAT(oDrawingDistance, 4000),
+    BEGIN_LOOP(),
+        CALL_NATIVE(cur_obj_update_floor_and_walls),
+        CALL_NATIVE(bhv_sideways_thwomp_loop),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvThwimp[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    SET_HOME(),
+    DROP_TO_FLOOR(),
+    CALL_NATIVE(bhv_thwimp_init),
+    SET_FLOAT(oDrawingDistance, 4000),
+    SET_INT(oIntangibleTimer, 0),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_thwimp_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvNewThwomp[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    LOAD_COLLISION_DATA(new_thwomp_collision),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    DROP_TO_FLOOR(),
+    ADD_FLOAT(oPosY, 1),
+    SET_HOME(),
+    SET_FLOAT(oDrawingDistance, 4000),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_grindel_thwomp_loop),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};
 
 const BehaviorScript bhvTumblingBridgePlatform[] = {
     BEGIN(OBJ_LIST_SURFACE),
@@ -4573,6 +4618,29 @@ const BehaviorScript bhvRedCoin[] = {
     CALL_NATIVE(bhv_red_coin_init),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_red_coin_loop),
+        ADD_INT(oAnimState, 1),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvHiddenGreenCoinStar[] = {
+    BEGIN(OBJ_LIST_LEVEL),
+    OR_INT(oFlags, (OBJ_FLAG_PERSISTENT_RESPAWN | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    CALL_NATIVE(bhv_hidden_green_coin_star_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_hidden_green_coin_star_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvGreenCoin[] = {
+    BEGIN(OBJ_LIST_LEVEL),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    BILLBOARD(),
+    SET_INT(oIntangibleTimer, 0),
+    SET_INT(oAnimState, OBJ_ANIM_STATE_INIT_ANIM),
+    CALL_NATIVE(bhv_init_room),
+    CALL_NATIVE(bhv_green_coin_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_green_coin_loop),
         ADD_INT(oAnimState, 1),
     END_LOOP(),
 };

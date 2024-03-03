@@ -31,6 +31,8 @@ extern const GeoLayout blue_coin_geo[];
 extern const GeoLayout blue_coin_no_shadow_geo[];
 extern const GeoLayout red_coin_geo[];
 extern const GeoLayout red_coin_no_shadow_geo[];
+extern const GeoLayout green_coin_geo[];
+extern const GeoLayout green_coin_no_shadow_geo[];
 #ifdef IA8_30FPS_COINS
 extern const GeoLayout silver_coin_geo[];
 extern const GeoLayout silver_coin_no_shadow_geo[];
@@ -86,6 +88,10 @@ extern const Gfx coin_seg3_dl_red_front[];
 extern const Gfx coin_seg3_dl_red_tilt_right[];
 extern const Gfx coin_seg3_dl_red_side[];
 extern const Gfx coin_seg3_dl_red_tilt_left[];
+extern const Gfx coin_seg3_dl_green_front[];
+extern const Gfx coin_seg3_dl_green_tilt_right[];
+extern const Gfx coin_seg3_dl_green_side[];
+extern const Gfx coin_seg3_dl_green_tilt_left[];
 #endif
 
 // dirt
