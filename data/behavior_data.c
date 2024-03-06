@@ -1181,8 +1181,20 @@ const BehaviorScript bhvThwomp[] = {
     END_LOOP(),
 };
 //new
+const BehaviorScript bhvThwompKing[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    LOAD_COLLISION_DATA(thwomp_seg5_collision_0500B7D0),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    ADD_FLOAT(oPosY, 1),
+    SCALE(/*Unused*/ 0, /*Field*/ 3000),
+    //SET_FLOAT(oDrawingDistance, 32000),
+    SET_HOME(),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_thwomp_king_loop),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};
 
-//new
 const BehaviorScript bhvSidewaysThwomp[] = {
     BEGIN(OBJ_LIST_SURFACE),
     LOAD_COLLISION_DATA(new_thwomp_collision),

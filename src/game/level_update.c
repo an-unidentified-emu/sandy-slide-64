@@ -1,3 +1,4 @@
+#include "texscroll.h"
 #include <ultra64.h>
 
 #include "sm64.h"
@@ -523,16 +524,9 @@ void check_instant_warp(void) {
     s16 cameraAngle;
     struct Surface *floor;
 
-#ifdef ENABLE_VANILLA_LEVEL_SPECIFIC_CHECKS
- #ifdef UNLOCK_ALL
-    if (gCurrLevelNum == LEVEL_CASTLE) {
- #else // !UNLOCK_ALL
-    if (gCurrLevelNum == LEVEL_CASTLE
-        && save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) >= 70) {
- #endif // !UNLOCK_ALL
-        return;
-    }
-#endif // ENABLE_VANILLA_LEVEL_SPECIFIC_CHECKS
+
+    if (gCurrLevelNum == LEVEL_BITS && gInstantWarpsOff) return;
+
 
     if ((floor = gMarioState->floor) != NULL) {
         s32 index = floor->type - SURFACE_INSTANT_WARP_1B;
@@ -1174,7 +1168,7 @@ s32 update_level(void) {
 
     switch (sCurrPlayMode) {
         case PLAY_MODE_NORMAL:
-            changeLevel = play_mode_normal();
+            changeLevel = play_mode_normal(); scroll_textures();
             break;
         case PLAY_MODE_PAUSED:
             changeLevel = play_mode_paused();

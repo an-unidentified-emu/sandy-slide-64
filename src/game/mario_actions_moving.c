@@ -196,6 +196,11 @@ void update_sliding_angle(struct MarioState *m, f32 accel, f32 lossFactor) {
             m->slideVelX = m->slideVelX * 200.0f / m->forwardVel;
             m->slideVelZ = m->slideVelZ * 200.0f / m->forwardVel;
         }
+    } else if ((m->floor->type == SURFACE_300_SPEED)){
+        if (m->forwardVel > 500.0f) {
+            m->slideVelX = m->slideVelX * 500.0f / m->forwardVel;
+            m->slideVelZ = m->slideVelZ * 500.0f / m->forwardVel;
+        } else m->forwardVel += 100;
     } else {
         if (m->forwardVel > 100.0f) {
             m->slideVelX = m->slideVelX * 100.0f / m->forwardVel;

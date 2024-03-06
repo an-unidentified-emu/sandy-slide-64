@@ -6026,6 +6026,12 @@ struct CameraTrigger sCamBBH[] = {
  *
  * Each table is terminated with NULL_TRIGGER
  */
+struct CameraTrigger sCamCastleGrounds[] = {
+	NULL_TRIGGER
+};
+struct CameraTrigger sCamBitS[] = {
+	NULL_TRIGGER
+};
 struct CameraTrigger *sCameraTriggers[LEVEL_COUNT + 1] = {
     NULL,
     #include "levels/level_defines.h"
@@ -7400,6 +7406,17 @@ void cutscene_dance_closeup_start(struct Camera *c) {
     vec3f_copy(sCutsceneVars[9].point, c->focus);
     //! cvar8 is unused in the closeup cutscene
     sCutsceneVars[8].angle[0] = 0x2000;
+}
+
+void cutscene_snow_hill(struct Camera *c) {
+    Vec3f marioPos;
+    vec3f_copy(marioPos, sMarioCamState->pos);
+    vec3f_set(c->pos, 0, marioPos[1]-500.0f, marioPos[2]-1000.0f);
+    //vec3f_set(c->focus, marioPos[0] + 1500.0f, marioPos[1] + 1200.0f, marioPos[2] / 2);
+    c->yaw = c->nextYaw = DEGREES(180);
+    // marioOffset[0] = the (perpendicular) horizontal distance from the path
+    // marioOffset[1] = the vertical distance from the path
+    // marioOffset[2] = the (parallel) horizontal distance from the path's midpoint
 }
 
 /**
@@ -9965,6 +9982,9 @@ struct Cutscene sCutsceneDoorWarp[] = {
     { cutscene_door_loop, CUTSCENE_LOOP }
 };
 
+struct Cutscene sCutsceneSnowHill[] = {
+    { cutscene_snow_hill, CUTSCENE_LOOP },
+};
 /**
  * Cutscene that plays after the credits, when Lakitu is flying away from the castle.
  */
@@ -10773,6 +10793,7 @@ void play_cutscene(struct Camera *c) {
         CUTSCENE(CUTSCENE_RACE_DIALOG,          sCutsceneDialog)
         CUTSCENE(CUTSCENE_ENTER_PYRAMID_TOP,    sCutsceneEnterPyramidTop)
         CUTSCENE(CUTSCENE_SSL_PYRAMID_EXPLODE,  sCutscenePyramidTopExplode)
+        CUTSCENE(CUTSCENE_SNOW_HILL,            sCutsceneSnowHill)
     }
 
 #undef CUTSCENE

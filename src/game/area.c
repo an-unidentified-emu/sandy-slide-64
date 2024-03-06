@@ -59,6 +59,7 @@ Color gWarpTransGreen = 0;
 Color gWarpTransBlue = 0;
 s16 gCurrSaveFileNum = 1;
 s16 gCurrLevelNum = LEVEL_MIN;
+s8 gInstantWarpsOff = FALSE;
 
 /*
  * The following two tables are used in get_mario_spawn_type() to determine spawn type

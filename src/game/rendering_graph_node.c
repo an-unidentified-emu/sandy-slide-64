@@ -954,7 +954,7 @@ void geo_process_shadow(struct GraphNodeShadow *node) {
 
 s32 obj_is_in_view(struct GraphNodeObject *node) {
     struct GraphNode *geo = node->sharedChild;
-
+    if(gCurrLevelNum == LEVEL_BITS) return TRUE;
     s16 cullingRadius;
 
     if (geo != NULL && geo->type == GRAPH_NODE_TYPE_CULLING_RADIUS) {
