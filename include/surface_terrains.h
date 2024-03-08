@@ -49,7 +49,7 @@ enum SurfaceTypes {
     SURFACE_WALL_MISC,                  // 0x0028 // Used for some walls, Cannon to adjust the camera, and some objects like Warp Pipe
     SURFACE_NOISE_DEFAULT,              // 0x0029 // Default floor with noise
     SURFACE_NOISE_SLIPPERY,             // 0x002A // Slippery floor with noise
-    SURFACE_002B,                       // 0x002B // Unused
+    SURFACE_SLOW_SLIDE,                       // 0x002B // Unused
     SURFACE_HORIZONTAL_WIND,            // 0x002C // Horizontal wind, has parameters
     SURFACE_INSTANT_MOVING_QUICKSAND,   // 0x002D // Quicksand (lethal, flowing)
     SURFACE_ICE,                        // 0x002E // Slippery Ice, in snow levels and THI's water floor

@@ -91,6 +91,15 @@ extern const Gfx yoshi_egg_seg5_dl_05009898[];
 extern const Gfx yoshi_egg_seg5_dl_050098B0[];
 extern const Gfx yoshi_egg_seg5_dl_050098C8[];
 
+// bomb
+extern const GeoLayout bowser_bomb_geo[];
+extern const Gfx bomb_seg6_dl_0605A7C0[];
+extern const Gfx bomb_seg6_dl_0605A7F8[];
+extern const Gfx bomb_seg6_dl_0605A830[];
+extern const Gfx bomb_seg6_dl_0605A8A8[];
+extern const Gfx bomb_seg6_dl_0605A9C0[];
+
+
 #include "thwimp/geo_header.h"
 
 #include "new_thwomp/geo_header.h"

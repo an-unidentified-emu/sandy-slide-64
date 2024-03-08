@@ -414,6 +414,7 @@ struct MarioState {
     /*0x3A*/ s16 twirlYaw;
     /*0x3C*/ Vec3f pos;
     /*0x48*/ Vec3f vel;
+             Vec3f QuadValues;
     /*0x54*/ f32 forwardVel;
     /*0x58*/ f32 slideVelX;
     /*0x5C*/ f32 slideVelZ;

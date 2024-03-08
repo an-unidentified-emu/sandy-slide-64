@@ -1,10 +1,13 @@
 // bowser_bomb.inc.c
 
 void bhv_bowser_bomb_loop(void) {
-    if (obj_check_if_collided_with_object(o, gMarioObject) == TRUE) {
+    struct Object *Thwomp = cur_obj_nearest_object_with_behavior(bhvThwompKing);
+    if (o->oTimer >30) {
         o->oInteractStatus &= ~INT_STATUS_INTERACTED;
         spawn_object(o, MODEL_EXPLOSION, bhvExplosion);
         o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
+        Thwomp->oAction = 3;
+        Thwomp->oTimer = 0;
     }
 
     if (o->oInteractStatus & INT_STATUS_HIT_MINE) {
@@ -13,7 +16,8 @@ void bhv_bowser_bomb_loop(void) {
         set_camera_shake_from_point(SHAKE_POS_LARGE, o->oPosX, o->oPosY, o->oPosZ);
         o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
     }
-
+    o->oPosZ -= 50;
+    o->oPosY += 50;
     set_object_visibility(o, 7000);
 }
 

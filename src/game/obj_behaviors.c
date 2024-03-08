@@ -240,11 +240,7 @@ void calc_new_obj_vel_and_pos_y(struct Surface *objFloor, f32 objFloorY, f32 obj
         o->oPosY = objFloorY;
 
         // Bounces an object if the ground is hit fast enough.
-        if (o->oVelY < -17.5f) {
-            o->oVelY = -(o->oVelY / 2);
-        } else {
-            o->oVelY = 0;
-        }
+        
     }
 
     if ((o->oPosY >= objFloorY) && (o->oPosY < objFloorY + 37)) {
@@ -368,9 +364,8 @@ s16 object_step(void) {
     f32 floorY;
     f32 waterY = FLOOR_LOWER_LIMIT_MISC;
 
-    f32 objVelX = o->oForwardVel * sins(o->oMoveAngleYaw);
-    f32 objVelZ = o->oForwardVel * coss(o->oMoveAngleYaw);
-
+    f32 objVelX = 0;
+    f32 objVelZ = -30;
     s16 collisionFlags = 0;
 
     // Find any wall collisions, receive the push, and set the flag.

@@ -407,6 +407,7 @@ s32 mario_get_floor_class(struct MarioState *m) {
             case SURFACE_SUPER_SLIPPERY:
             case SURFACE_VERY_SLIPPERY:
             case SURFACE_300_SPEED:
+            case SURFACE_SLOW_SLIDE:
             case SURFACE_ICE:
             case SURFACE_HARD_VERY_SLIPPERY:
             case SURFACE_NOISE_VERY_SLIPPERY_73:
@@ -487,6 +488,7 @@ u32 mario_get_terrain_sound_addend(struct MarioState *m) {
                 case SURFACE_SUPER_SLIPPERY:
                 case SURFACE_VERY_SLIPPERY:
                 case SURFACE_300_SPEED:
+                case SURFACE_SLOW_SLIDE:
                 case SURFACE_ICE:
                 case SURFACE_HARD_VERY_SLIPPERY:
                 case SURFACE_NOISE_VERY_SLIPPERY_73:
@@ -1752,7 +1754,12 @@ s32 execute_mario_action(UNUSED struct Object *obj) {
         if (gMarioState->floor == NULL) {
             return ACTIVE_PARTICLE_NONE;
         }
-
+        struct Object *Thwomp = cur_obj_nearest_object_with_behavior(bhvThwompKing);
+        if (Thwomp != NULL){
+            if (Thwomp->oAction == 3 && Thwomp->oTimer==60){
+                set_mario_action(gMarioState, ACT_PARABOLA_SETUP, 0);
+            }
+        }
         // The function can loop through many action shifts in one frame,
         // which can lead to unexpected sub-frame behavior. Could potentially hang
         // if a loop of actions were found, but there has not been a situation found.

@@ -2667,6 +2667,51 @@ s32 act_floor_checkpoint_warp_out(struct MarioState *m) {
     return warp_to_checkpoint(m, m->actionArg);
 }
 
+void find_quadratic(f32 y1, f32 z1, struct MarioState *m) {
+    // Constants
+    f32 y2 = 2750;
+    f32 z2 = -1000;
+    f32 y3 = m->pos[1];
+    f32 z3 = m->pos[2];
+    f32 a, b, c;
+    // Solve for a, b, and c
+    f32 denom = (z1 - z2) * (z1 - z3) * (z2 - z3);
+    a = ((z3 * (y2 - y1) + z2 * (y1 - y3) + z1 * (y3 - y2)) / denom);
+    b = ((z3 * z3 * (y1 - y2) + z2 * z2 * (y3 - y1) + z1 * z1 * (y2 - y3)) / denom);
+    c = ((z2 * z3 * (z2 - z3) * y1 + z3 * z1 * (z3 - z1) * y2 + z1 * z2 * (z1 - z2) * y3) / denom);
+
+    m->QuadValues[0] = a;
+    m->QuadValues[1] = b;
+    m->QuadValues[2] = c;
+}
+
+void trajectory_between_a_b(struct MarioState *m){
+    f32 z = m->pos[2];
+    m->pos[1] = z*z*m->QuadValues[0] + m->QuadValues[1]*z + m->QuadValues[2];
+}
+
+s32 act_parabola_setup(struct MarioState *m) {
+    set_mario_animation(m, MARIO_ANIM_BACKWARD_AIR_KB);
+    f32 y,z;
+    y = 2184;
+    z = 3688;
+    find_quadratic(y,z,m);
+    set_mario_action(m, ACT_PARABOLA, 0);
+    return TRUE;
+}
+
+s32 act_parabola(struct MarioState *m) {
+    f32 y,z;
+    y = 4821;
+    z = -5814;
+    trajectory_between_a_b(m); // move mario
+    m->pos[2] +=50;
+    //gMarioCurrentRoom = 1;
+    //gInstantWarpsOff = TRUE;
+    vec3f_copy(m->marioObj->header.gfx.pos, m->pos);
+    if (absf(2184-m->pos[1])<200 && absf(3688-m->pos[2])<200) return set_mario_action(m, ACT_IDLE, 0);
+    return FALSE;
+}
 // NOTE: Should be initiated from warp_to_checkpoint
 s32 act_floor_checkpoint_warp_in(struct MarioState *m) {
     m->invincTimer = 30;
@@ -2769,6 +2814,8 @@ s32 mario_execute_cutscene_action(struct MarioState *m) {
         case ACT_PUTTING_ON_CAP:             cancel = act_putting_on_cap(m);             break;
         case ACT_FLOOR_CHECKPOINT_WARP_OUT:  cancel = act_floor_checkpoint_warp_out(m);  break;
         case ACT_FLOOR_CHECKPOINT_WARP_IN:   cancel = act_floor_checkpoint_warp_in(m);   break;
+        case ACT_PARABOLA_SETUP:             cancel = act_parabola_setup(m);             break;
+        case ACT_PARABOLA:                   cancel = act_parabola(m);                   break;
     }
     /* clang-format on */
 

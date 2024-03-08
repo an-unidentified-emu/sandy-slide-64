@@ -181,8 +181,8 @@ void update_sliding_angle(struct MarioState *m, f32 accel, f32 lossFactor) {
     }
 
     m->faceAngle[1] = m->slideYaw + newFacingDYaw;
-
-    m->vel[0] = m->slideVelX;
+    if ((m->floor->type == SURFACE_SLOW_SLIDE)) m->vel[0] = m->slideVelX *13.0f; // this is what makes it feel fast
+    else m->vel[0] = m->slideVelX;
     m->vel[1] = 0.0f;
     m->vel[2] = m->slideVelZ;
 
@@ -201,6 +201,11 @@ void update_sliding_angle(struct MarioState *m, f32 accel, f32 lossFactor) {
             m->slideVelX = m->slideVelX * 500.0f / m->forwardVel;
             m->slideVelZ = m->slideVelZ * 500.0f / m->forwardVel;
         } else m->forwardVel += 100;
+    } else if ((m->floor->type == SURFACE_SLOW_SLIDE)){
+        if (m->forwardVel > 10.0f) {
+            m->slideVelX = m->slideVelX * 10.0f / m->forwardVel;
+            m->slideVelZ = m->slideVelZ * 10.0f / m->forwardVel;
+        } else m->forwardVel = 10;
     } else {
         if (m->forwardVel > 100.0f) {
             m->slideVelX = m->slideVelX * 100.0f / m->forwardVel;

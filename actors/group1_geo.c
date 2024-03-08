@@ -16,3 +16,4 @@
 
 #include "thwimp/geo.inc.c"
 #include "new_thwomp/geo.inc.c"
+#include "bomb/geo.inc.c"

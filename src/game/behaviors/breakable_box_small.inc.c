@@ -2,8 +2,8 @@
 
 struct ObjectHitbox sBreakableBoxSmallHitbox = {
     /* interactType:      */ INTERACT_DAMAGE,
-    /* downOffset:        */ 20,
-    /* damageOrCoinValue: */ 0,
+    /* downOffset:        */ 0,
+    /* damageOrCoinValue: */ 3,
     /* health:            */ 1,
     /* numLootCoins:      */ 0,
     /* radius:            */ 150,
@@ -13,10 +13,10 @@ struct ObjectHitbox sBreakableBoxSmallHitbox = {
 };
 
 void bhv_breakable_box_small_init(void) {
-    o->oGravity = 2.5f;
+    o->oGravity = 4.0f;
     o->oFriction = 0.99f;
-    o->oBuoyancy = 1.4f;
-    cur_obj_scale(0.4f);
+    o->oBuoyancy = 0.0f;
+    cur_obj_scale(1.0f);
     obj_set_hitbox(o, &sBreakableBoxSmallHitbox);
     o->oAnimState = BREAKABLE_BOX_ANIM_STATE_CORK_BOX;
     o->activeFlags |= ACTIVE_FLAG_DESTRUCTIVE_OBJ_DONT_DESTROY;
@@ -29,6 +29,7 @@ void small_breakable_box_spawn_dust(void) {
 }
 
 void small_breakable_box_act_move(void) {
+    o->oForwardVel = 40;
     s16 collisionFlags = object_step();
 
     obj_attack_collided_from_other_object(o);
@@ -44,13 +45,13 @@ void small_breakable_box_act_move(void) {
         }
     }
 
-    if (collisionFlags & OBJ_COL_FLAG_HIT_WALL) {
+    /*if (collisionFlags & OBJ_COL_FLAG_HIT_WALL) {
         spawn_mist_particles();
         spawn_triangle_break_particles(20, MODEL_DIRT_ANIMATION, 0.7f, 3);
         obj_spawn_yellow_coins(o, 3);
         create_sound_spawner(SOUND_GENERAL_BREAK_BOX);
         o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
-    }
+    }*/
 
     obj_check_floor_death(collisionFlags, sObjFloor);
 }

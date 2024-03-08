@@ -538,11 +538,14 @@ void puppycamera_debug_view(void) {
     char textBytes[80];
     // Very little point printing useless info if Mayro doesn't even exist.
     if (gMarioState->marioObj) {
-        sprintf(textBytes, "Mario Pos\nX: %d\nY: %d\nZ: %d\nD: %X\nA: %x",
+        sprintf(textBytes, "Mario Pos\nX: %d\nY: %d\nZ: %d\n A: %f\nB: %f\nC: %f\nD: %X\nA: %x",
             (s32)(gMarioState->pos[0]),
             (s32)(gMarioState->pos[1]),
             (s32)(gMarioState->pos[2]),
             (u16)(gMarioState->faceAngle[1]),
+            (f32)(gMarioState->QuadValues[0]),
+            (f32)(gMarioState->QuadValues[1]),
+            (f32)(gMarioState->QuadValues[2]),
             (u32)(gMarioState->action & ACT_ID_MASK));
         print_small_text_light(16, 140, textBytes, PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_OUTLINE);
     }
@@ -1009,10 +1012,13 @@ void puppyprint_render_general_vars(void) {
 #ifndef ENABLE_CREDITS_BENCHMARK
     // Very little point printing useless info if Mario doesn't even exist.
     if (gMarioState->marioObj) {
-        sprintf(textBytes, "Mario\n\nX: %d\nY: %d\nZ: %d\nYaw: 0x%04X\n\nfVel: %1.1f\nyVel: %1.1f\n\nHealth: %03X\nAction: 0x%02X\nFloor Type: 0x%02X\nWater Height: %d",
+        sprintf(textBytes, "Mario\n\nX: %d\nY: %d\nZ: %d\nA:%f\nB:%f\nC:%f\nYaw: 0x%04X\n\nfVel: %1.1f\nyVel: %1.1f\n\nHealth: %03X\nAction: 0x%02X\nFloor Type: 0x%02X\nWater Height: %d",
             (s32)(gMarioState->pos[0]),
             (s32)(gMarioState->pos[1]),
             (s32)(gMarioState->pos[2]),
+            (f32)(gMarioState->QuadValues[0]),
+            (f32)(gMarioState->QuadValues[1]),
+            (f32)(gMarioState->QuadValues[2]),
             (u16)(gMarioState->faceAngle[1]),
             (f32)(gMarioState->forwardVel),
             (f32)(gMarioState->vel[1]),
