@@ -1929,7 +1929,8 @@ void pss_end_slide(struct MarioState *m) {
 void check_hurt_floor(struct MarioState *m) {
     if (m->pos[1] < m->floorHeight + 2048.0f) {
         play_sound(SOUND_MARIO_ATTACKED, m->marioObj->header.gfx.cameraToObject);
-        take_damage_from_no_interact_object(m, 0);
+        if(gCurrLevelNum == LEVEL_BITS)
+        take_damage_from_no_interact_object(m, m->floor->force);
         
         mario_drop_held_object(m);
         mario_stop_riding_object(m);

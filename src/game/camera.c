@@ -7415,7 +7415,7 @@ void cutscene_snow_hill(struct Camera *c) {
     Vec3f marioPos;
     vec3f_copy(marioPos, sMarioCamState->pos);
     vec3f_set(c->pos, 0, marioPos[1]-250.0f, marioPos[2]-1000.0f);
-    //vec3f_set(c->focus, marioPos[0] + 1500.0f, marioPos[1] + 1200.0f, marioPos[2] / 2);
+    vec3f_set(c->focus, 0, marioPos[1]+20.0f, marioPos[2]);
     c->yaw = c->nextYaw = DEGREES(180);
     // marioOffset[0] = the (perpendicular) horizontal distance from the path
     // marioOffset[1] = the vertical distance from the path

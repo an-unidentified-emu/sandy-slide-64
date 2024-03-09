@@ -137,7 +137,9 @@ u32 mario_update_quicksand(struct MarioState *m, f32 sinkingSpeed) {
                     m->quicksandDepth = 10.0f;
                 }
                 break;
-
+            case SURFACE_SLOW_SLIDE:
+                m->quicksandDepth = 10;
+                break;
             case SURFACE_SHALLOW_MOVING_QUICKSAND:
                 if ((m->quicksandDepth += sinkingSpeed) >= 25.0f) {
                     m->quicksandDepth = 25.0f;

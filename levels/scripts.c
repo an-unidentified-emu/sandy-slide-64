@@ -211,6 +211,8 @@ const LevelScript script_func_global_2[] = {
     LOAD_MODEL_FROM_GEO(MODEL_HEAVE_HO,                heave_ho_geo),
     LOAD_MODEL_FROM_GEO(MODEL_BOWSER_BOMB_CHILD_OBJ,   bowser_bomb_geo),
     LOAD_MODEL_FROM_GEO(MODEL_BOWSER_BOMB,             bowser_bomb_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_SPINDEL,             spindel_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_GRINDEL,             grindel_geo),
     RETURN(),
 };
 

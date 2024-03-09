@@ -2,6 +2,7 @@ enum THWOMP_KING_ACTIONS{
     WAIT_FOR_MARIO,
     MARIO_ON_UPPER_SLOPE,
     MARIO_ON_LOWER_SLOPE,
+    HIT_INITIATE,
     HIT
 };
 void bhv_thwomp_king_init(void){}
@@ -19,33 +20,43 @@ void mario_on_upper_slope(void){
         o->oAction = MARIO_ON_LOWER_SLOPE;
         gCamera->cutscene = CUTSCENE_NONE;
         gCamera->mode = CAMERA_MODE_SLIDE_HOOT;
-        o->oThwompKingCycle++;
         o->oTimer = 0;
     }
-    else if (o->oTimer > 30) gCamera->cutscene = CUTSCENE_SNOW_HILL;
+    else if (o->oTimer > 0) gCamera->cutscene = CUTSCENE_SNOW_HILL;
 }
 
 void mario_on_lower_slope(void){
     if (o->oTimer < 60) o->oPosY -= 200;
     else if (o->oTimer < 120) o->oPosY += 200;
-    if(o->oTimer >= 60 && o->oTimer <= 120) {
-        //set_camera_shake_from_point(SHAKE_POS_MASSIVE, gMarioObject->oPosX+(random_sign()*50), gMarioObject->oPosY+(random_sign()*50), gMarioObject->oPosZ+50);
+    if(o->oTimer >= 60 && o->oTimer <= 80) {
+        set_camera_shake_from_point(SHAKE_POS_LARGE, gMarioObject->oPosX+(random_sign()*50), gMarioObject->oPosY+(random_sign()*50), gMarioObject->oPosZ+50);
         cur_obj_play_sound_2(SOUND_OBJ_THWOMP);
     }
     if (o->oTimer > 180) o->oTimer = 0;
 }
 
+void hit_initiate(void){
+    if (o->oPosY < o->oHomeY) o->oPosY += 200;
+    else o->oAction = HIT;
+}
 void hit(void){
     if (o->oTimer < 60) o->oPosY -= 200;
     else if (o->oTimer < 80) o->oPosY += 600;
     if(o->oTimer >= 60) {
-        //set_camera_shake_from_point(SHAKE_POS_MASSIVE, gMarioObject->oPosX+(random_sign()*50), gMarioObject->oPosY+(random_sign()*50), gMarioObject->oPosZ+50);
+        set_camera_shake_from_point(SHAKE_POS_MASSIVE, gMarioObject->oPosX+(random_sign()*50), gMarioObject->oPosY+(random_sign()*50), gMarioObject->oPosZ+50);
         cur_obj_play_sound_2(SOUND_OBJ_THWOMP);
     }
-    if(gMarioCurrentRoom == 1) o->oAction = MARIO_ON_UPPER_SLOPE;
+    if(gMarioCurrentRoom == 1) {
+        o->oAction = MARIO_ON_UPPER_SLOPE;
+        o->oThwompKingCycle++;
+    }
 }
 
 void bhv_thwomp_king_loop(void){
+    if (gMarioState->health <= 0x0FF){
+        o->oAction = WAIT_FOR_MARIO;
+        gMarioCurrentRoom = 0;
+    }
     switch (o->oAction) {
         case WAIT_FOR_MARIO: 
             wait_for_mario();
@@ -55,6 +66,9 @@ void bhv_thwomp_king_loop(void){
             break;
         case MARIO_ON_LOWER_SLOPE:
             mario_on_lower_slope();
+            break;
+        case HIT_INITIATE:
+            hit_initiate();
             break;
         case HIT:
             hit();

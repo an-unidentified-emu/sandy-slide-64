@@ -1756,7 +1756,7 @@ s32 execute_mario_action(UNUSED struct Object *obj) {
         }
         struct Object *Thwomp = cur_obj_nearest_object_with_behavior(bhvThwompKing);
         if (Thwomp != NULL){
-            if (Thwomp->oAction == 3 && Thwomp->oTimer==60){
+            if (Thwomp->oAction == 4 && Thwomp->oTimer==60){
                 set_mario_action(gMarioState, ACT_PARABOLA_SETUP, 0);
             }
         }

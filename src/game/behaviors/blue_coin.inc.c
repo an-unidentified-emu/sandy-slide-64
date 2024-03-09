@@ -127,10 +127,11 @@ void bhv_blue_coin_switch_loop(void) {
             break;
 
         case BLUE_COIN_SWITCH_ACT_TICKING:
-            spawn_object_relative(0x00, 0, 10, -500, o, MODEL_BOWSER_BOMB, bhvBowserBomb);
-            if(o->oTimer > 50) {
+            if(o->oTimer == 1) spawn_object_relative(0x00, 0, 10, -500, o, MODEL_BOWSER_BOMB, bhvBowserBomb);
+            if(o->oTimer > 240) {
                 o->oAction = BLUE_COIN_SWITCH_ACT_EXTENDING;
-                o->oTimer = 0;
+                o->oVelY    = 16.0f;
+                o->oGravity =  0.0f;
             }
             break;
         case BLUE_COIN_SWITCH_ACT_EXTENDING:

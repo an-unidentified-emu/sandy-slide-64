@@ -321,6 +321,8 @@
 #define MODEL_THWIMP                      0xFF        // thwimp_geo
 #define MODEL_NEW_THWOMP                  0xFE       // new_thwomp_geo
 #define MODEL_HEAVE_HO                    0x59        // heave_ho_geo
+#define MODEL_SPINDEL                     0xFD        //spindel_geo
+#define MODEL_GRINDEL                     0xFC        //grindel_geo
 
 // group 2
 #define MODEL_BLARGG                      0x54        // blargg_geo

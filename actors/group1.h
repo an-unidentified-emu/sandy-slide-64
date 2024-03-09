@@ -99,6 +99,15 @@ extern const Gfx bomb_seg6_dl_0605A830[];
 extern const Gfx bomb_seg6_dl_0605A8A8[];
 extern const Gfx bomb_seg6_dl_0605A9C0[];
 
+extern const GeoLayout spindel_geo[];
+extern const Gfx ssl_seg7_dl_070228A8[];
+extern const Gfx ssl_seg7_dl_070229E8[];
+extern const Collision spindel[];
+
+extern const GeoLayout grindel_geo[];
+extern const Gfx ssl_seg7_dl_070220A8[];
+extern const Gfx ssl_seg7_dl_070221E8[];
+extern const Collision grindel[];
 
 #include "thwimp/geo_header.h"
 

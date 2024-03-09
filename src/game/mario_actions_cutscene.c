@@ -2705,11 +2705,11 @@ s32 act_parabola(struct MarioState *m) {
     y = 4821;
     z = -5814;
     trajectory_between_a_b(m); // move mario
-    m->pos[2] +=50;
+    m->pos[2] +=100;
     //gMarioCurrentRoom = 1;
     //gInstantWarpsOff = TRUE;
     vec3f_copy(m->marioObj->header.gfx.pos, m->pos);
-    if (absf(2184-m->pos[1])<200 && absf(3688-m->pos[2])<200) return set_mario_action(m, ACT_IDLE, 0);
+    if (absf(2184-m->pos[1])<300 && absf(3688-m->pos[2])<300) return set_mario_action(m, ACT_IDLE, 0);
     return FALSE;
 }
 // NOTE: Should be initiated from warp_to_checkpoint

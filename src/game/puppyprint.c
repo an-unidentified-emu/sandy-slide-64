@@ -1016,7 +1016,7 @@ void puppyprint_render_general_vars(void) {
             (s32)(gMarioState->pos[0]),
             (s32)(gMarioState->pos[1]),
             (s32)(gMarioState->pos[2]),
-            (f32)(gMarioState->QuadValues[0]),
+            (f32)(gMarioCurrentRoom),
             (f32)(gMarioState->QuadValues[1]),
             (f32)(gMarioState->QuadValues[2]),
             (u16)(gMarioState->faceAngle[1]),

@@ -29,6 +29,21 @@ void small_breakable_box_spawn_dust(void) {
 }
 
 void small_breakable_box_act_move(void) {
+    struct Object *Thwomp = cur_obj_nearest_object_with_behavior(bhvThwompKing);
+    if(gMarioCurrentRoom == 1 && (o->oBehParams2ndByte == Thwomp->oThwompKingCycle)){
+        cur_obj_unhide();
+        cur_obj_become_tangible();
+    } else {
+        cur_obj_hide();
+        cur_obj_become_intangible();
+    }
+
+    if(o->oThwompKingCycle != gMarioCurrentRoom){
+        o->oPosX = o->oHomeX;
+        o->oPosY = o->oHomeY;
+        o->oPosZ = o->oHomeZ;
+    }
+    o->oThwompKingCycle = gMarioCurrentRoom;
     o->oForwardVel = 40;
     s16 collisionFlags = object_step();
 
@@ -39,9 +54,9 @@ void small_breakable_box_act_move(void) {
     }
 
     if (collisionFlags & OBJ_COL_FLAG_GROUNDED) {
-        if (o->oForwardVel > 20.0f) {
+        if (o->oForwardVel > 20.0f && gMarioCurrentRoom == 1) {
             cur_obj_play_sound_2(SOUND_ENV_SLIDING);
-            small_breakable_box_spawn_dust();
+            //small_breakable_box_spawn_dust();
         }
     }
 
@@ -87,9 +102,6 @@ void breakable_box_small_idle_loop(void) {
             break;
     }
 
-    if (o->oBreakableBoxSmallReleased == TRUE) {
-        breakable_box_small_released_loop();
-    }
 }
 
 void breakable_box_small_get_dropped(void) {
@@ -117,24 +129,7 @@ void breakable_box_small_get_thrown(void) {
 }
 
 void bhv_breakable_box_small_loop(void) {
-    switch (o->oHeldState) {
-        case HELD_FREE:
-            breakable_box_small_idle_loop();
-            break;
-
-        case HELD_HELD:
-            cur_obj_disable_rendering();
-            cur_obj_become_intangible();
-            break;
-
-        case HELD_THROWN:
-            breakable_box_small_get_thrown();
-            break;
-
-        case HELD_DROPPED:
-            breakable_box_small_get_dropped();
-            break;
-    }
+    small_breakable_box_act_move();
 
     o->oInteractStatus = INT_STATUS_NONE;
 }
