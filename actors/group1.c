@@ -35,3 +35,5 @@ UNUSED static const u64 binid_5 = 5;
 #include "bomb/model.inc.c"
 #include "grindel/collision.inc.c"
 #include "spindel/collision.inc.c"
+
+#include "spindel/model.inc.c"

@@ -114,4 +114,8 @@ extern const Collision grindel[];
 #include "new_thwomp/geo_header.h"
 
 #include "new_thwomp/collision_header.h"
+#include "spindel/geo_header.h"
+
+#include "spindel/collision_header.h"
+
 #endif

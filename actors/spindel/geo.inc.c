@@ -1,12 +1,12 @@
-// 0x0E000764
+#include "src/game/envfx_snow.h"
+
 const GeoLayout spindel_geo[] = {
-   GEO_CULLING_RADIUS(550),
-   GEO_OPEN_NODE(),
-      GEO_SHADOW(SHADOW_RECTANGLE_SPINDEL, 0xB4, 100),
-      GEO_OPEN_NODE(),
-         GEO_DISPLAY_LIST(LAYER_OPAQUE, ssl_seg7_dl_070228A8),
-         GEO_DISPLAY_LIST(LAYER_ALPHA,  ssl_seg7_dl_070229E8),
-      GEO_CLOSE_NODE(),
-   GEO_CLOSE_NODE(),
-   GEO_END(),
+	GEO_NODE_START(),
+	GEO_OPEN_NODE(),
+		GEO_ANIMATED_PART(LAYER_OPAQUE, 0, 0, 0, spindel_Bone_mesh_layer_1),
+		GEO_OPEN_NODE(),
+			GEO_DISPLAY_LIST(LAYER_TRANSPARENT_DECAL, spindel_Bone_mesh_layer_6),
+		GEO_CLOSE_NODE(),
+	GEO_CLOSE_NODE(),
+	GEO_END(),
 };

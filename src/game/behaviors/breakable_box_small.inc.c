@@ -6,20 +6,20 @@ struct ObjectHitbox sBreakableBoxSmallHitbox = {
     /* damageOrCoinValue: */ 3,
     /* health:            */ 1,
     /* numLootCoins:      */ 0,
-    /* radius:            */ 150,
+    /* radius:            */ 200,
     /* height:            */ 250,
-    /* hurtboxRadius:     */ 150,
-    /* hurtboxHeight:     */ 250,
+    /* hurtboxRadius:     */ 250,
+    /* hurtboxHeight:     */ 150,
 };
 
 void bhv_breakable_box_small_init(void) {
     o->oGravity = 4.0f;
     o->oFriction = 0.99f;
     o->oBuoyancy = 0.0f;
-    cur_obj_scale(1.0f);
+    //cur_obj_scale(1.0f);
     obj_set_hitbox(o, &sBreakableBoxSmallHitbox);
-    o->oAnimState = BREAKABLE_BOX_ANIM_STATE_CORK_BOX;
-    o->activeFlags |= ACTIVE_FLAG_DESTRUCTIVE_OBJ_DONT_DESTROY;
+    //o->oAnimState = BREAKABLE_BOX_ANIM_STATE_CORK_BOX;
+    //o->activeFlags |= ACTIVE_FLAG_DESTRUCTIVE_OBJ_DONT_DESTROY;
 }
 
 void small_breakable_box_spawn_dust(void) {
@@ -30,7 +30,13 @@ void small_breakable_box_spawn_dust(void) {
 
 void small_breakable_box_act_move(void) {
     struct Object *Thwomp = cur_obj_nearest_object_with_behavior(bhvThwompKing);
-    if(gMarioCurrentRoom == 1 && (o->oBehParams2ndByte == Thwomp->oThwompKingCycle)){
+    s8 mask;
+    switch(Thwomp->oThwompKingCycle) { //for objects in more than one section, bparam2 is checked for its binary value and each bit represents a phase 011 would mean be active in the first 2 phases
+        case 0: mask = 0x01; break;
+        case 1: mask = 0x02; break;
+        case 2: mask = 0x04; break;
+    }
+    if(gMarioCurrentRoom == 1 && ((o->oBehParams2ndByte & mask) != 0)){
         cur_obj_unhide();
         cur_obj_become_tangible();
     } else {
@@ -40,18 +46,18 @@ void small_breakable_box_act_move(void) {
 
     if(o->oThwompKingCycle != gMarioCurrentRoom){
         o->oPosX = o->oHomeX;
-        o->oPosY = o->oHomeY;
+        o->oPosY = o->oHomeY+50;
         o->oPosZ = o->oHomeZ;
     }
     o->oThwompKingCycle = gMarioCurrentRoom;
     o->oForwardVel = 40;
-    s16 collisionFlags = object_step();
+    o->oPosZ -= 31;
+    if(o->oTimer%2 == 1) o->oPosY -= 22;
+    else if(o->oTimer%9 == 1) o->oPosY -= 23;
+    else o->oPosY -= 21;
+    /*s16 collisionFlags = object_step();
 
     obj_attack_collided_from_other_object(o);
-
-    if (collisionFlags == OBJ_COL_FLAG_GROUNDED) {
-        cur_obj_play_sound_2(SOUND_GENERAL_SMALL_BOX_LANDING);
-    }
 
     if (collisionFlags & OBJ_COL_FLAG_GROUNDED) {
         if (o->oForwardVel > 20.0f && gMarioCurrentRoom == 1) {
@@ -60,15 +66,8 @@ void small_breakable_box_act_move(void) {
         }
     }
 
-    /*if (collisionFlags & OBJ_COL_FLAG_HIT_WALL) {
-        spawn_mist_particles();
-        spawn_triangle_break_particles(20, MODEL_DIRT_ANIMATION, 0.7f, 3);
-        obj_spawn_yellow_coins(o, 3);
-        create_sound_spawner(SOUND_GENERAL_BREAK_BOX);
-        o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
-    }*/
 
-    obj_check_floor_death(collisionFlags, sObjFloor);
+    obj_check_floor_death(collisionFlags, sObjFloor);*/
 }
 
 void breakable_box_small_released_loop(void) {
@@ -131,5 +130,25 @@ void breakable_box_small_get_thrown(void) {
 void bhv_breakable_box_small_loop(void) {
     small_breakable_box_act_move();
 
-    o->oInteractStatus = INT_STATUS_NONE;
+    s32 shake = 10 - o->oSpindelMoveTimer;
+
+    if (shake < 0) {
+        shake *= -1;
+    }
+
+    shake -= 6;
+    if (shake < 0) {
+        shake = 0;
+    }
+
+    if (o->oTimer == shake + 8) {
+        o->oTimer = 0;
+        o->oSpindelMoveTimer++;  
+    }
+
+    o->oAngleVelPitch = -1024;
+
+    o->oPosZ += o->oVelZ;
+    o->oMoveAnglePitch += o->oAngleVelPitch;
+    
 }

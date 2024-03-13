@@ -23,11 +23,9 @@ const GeoLayout bob_area_2_geo[] = {
 		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, -7243, 9321, -9601, 0, 0, -15, bob_dl_insdie_mesh_layer_1),
 		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 2034, 6603, -3951, 0, -90, -90, bob_dl_insdie_001_mesh_layer_1),
 		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 2034, 7053, -4869, 0, -90, -90, bob_dl_insdie_002_mesh_layer_1),
-		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 2034, 6647, 1319, 0, -90, -90, bob_dl_insdie_003_mesh_layer_1),
-		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 2034, 6338, -1752, 0, 90, 90, bob_dl_insdie_004_mesh_layer_1),
 		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 2557, 932, 9356, 0, -45, -90, bob_dl_insdie_005_mesh_layer_1),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, -10192, 10213, -10071, bob_dl_inslide_001_mesh_layer_1),
-		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 810, -461, 9353, 0, -180, 0, bob_dl_thwomp_attack_001_mesh_layer_1),
+		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_FORCE, 810, -461, 9353, 0, -180, 0, bob_dl_thwomp_attack_001_mesh_layer_0),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };

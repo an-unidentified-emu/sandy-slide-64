@@ -78,7 +78,7 @@ const LevelScript level_bob_entry[] = {
 		OBJECT(MODEL_1UP, -9351, 9705, -10101, 0, 0, 0, 0x00000000, bhvGreenCoin),
 		OBJECT(MODEL_NONE, 7369, -3037, -13530, 0, 0, 0, (6 << 16), bhvHiddenGreenCoinStar),
 		OBJECT(MODEL_NONE, 8777, -4125, -13472, 0, 0, 0, (70 << 24) | (2 << 16), bhvWarp),
-		OBJECT(MODEL_THWOMP, -7136, 9730, -10250, 0, 0, 0, 0x00000000, bhvThwomp),
+		OBJECT(MODEL_THWIMP, -7136, 9730, -10250, 0, 0, 0, (0x01 << 24) | (0x10 << 16) | (0x01 << 8), bhvThwimp),
 		OBJECT(MODEL_NONE, -10231, 10318, -10035, 0, 0, 0, 0x000A0000, bhvSpinAirborneWarp),
 		MARIO_POS(0x02, 0, -10231, 10318, -10035),
 		TERRAIN(bob_area_2_collision),
