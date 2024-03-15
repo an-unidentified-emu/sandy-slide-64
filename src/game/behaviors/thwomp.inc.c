@@ -65,51 +65,57 @@ void bhv_grindel_thwomp_loop(void) {
 Generates 2 raycast boxes, the bigger one for the peeking
 and the smaller for activation
 */
-UNUSED bhv_sideways_thwomp_init(void){
-    Vec3f orig = {o->oPosX, o->oPosY, o->oPosZ};
-    Vec3f dir = {0,0,0};
-    Vec3f hit_pos[2];
-    struct Surface *wall;
+void bhv_sideways_thwomp_init(void){
+    //Vec3f orig = {o->oPosX, o->oPosY, o->oPosZ};
+    //Vec3f dir = {0,0,0};
+    //Vec3f hit_pos[2];
+    //struct Surface *wall;
 
-    find_surface_on_ray(orig, dir, &wall, hit_pos, RAYCAST_FIND_FLOOR | RAYCAST_FIND_CEIL | RAYCAST_FIND_WALL);
+    //find_surface_on_ray(orig, dir, &wall, hit_pos, RAYCAST_FIND_FLOOR | RAYCAST_FIND_CEIL | RAYCAST_FIND_WALL);
     //if (hit_pos != NULL){
-    o->oPosX = (s32)hit_pos[0];
+    //o->oPosX = (s32)hit_pos[0];
     //o->oHomeX = o->oPosX;
     //}
+    if(o->oBehParams2ndByte == 0x01) o->oThwompDirection = -1;
+    else o->oThwompDirection = 1;
 }
 
 #define SIDEWAYS_THWOMP_WAIT 0
 #define SIDEWAYS_THWOMP_ATTACK 1
 #define SIDEWAYS_THWOMP_AT_END 2
 #define SIDEWAYS_THWOMP_RETURN 3
-void sideways_thwomp_wait(void) {
-    if (gMarioObject->oPosX >= o->oPosX - 1000 && // activates the peeking face
-        gMarioObject->oPosX <= o->oPosX - 100  &&
-        gMarioObject->oPosZ <= o->oPosZ + 400  &&
-        gMarioObject->oPosZ >= o->oPosZ - 400  &&
-        gMarioObject->oPosY <= o->oPosY + 500  &&
-        gMarioObject->oPosY >= o->oPosY - 400 ) {
-
-        
-    if (gMarioObject->oPosX >= o->oPosX - 1000 && // activates the movement
-        gMarioObject->oPosX <= o->oPosX - 100  &&
-        gMarioObject->oPosZ <= o->oPosZ + 200  &&
-        gMarioObject->oPosZ >= o->oPosZ - 200  &&
-        gMarioObject->oPosY <= o->oPosY + 500  &&
-        gMarioObject->oPosY >= o->oPosY - 200 ) {
-        o->oAction = SIDEWAYS_THWOMP_ATTACK;
-        o->oTimer = 0; }
-        }
+void sideways_thwomp_wait(void) {  
+    if (o->oBehParams2ndByte == 0x01) {
+        if (gMarioObject->oPosZ >= (o->oPosZ - 1000) &&
+            gMarioObject->oPosZ <= (o->oPosZ - 100) && // activates the movement
+            gMarioObject->oPosX <= o->oPosX + 550  &&
+            gMarioObject->oPosX >= o->oPosX - 200  &&
+            gMarioObject->oPosY <= o->oPosY + 500  &&
+            gMarioObject->oPosY >= o->oPosY - 200 ) {
+            o->oAction = SIDEWAYS_THWOMP_ATTACK;
+            o->oTimer = 0; }
+    } else {
+        if (gMarioObject->oPosZ <= (o->oPosZ + 1000) &&
+            gMarioObject->oPosZ >= (o->oPosZ +100) && // activates the movement
+            gMarioObject->oPosX <= o->oPosX + 550  &&
+            gMarioObject->oPosX >= o->oPosX - 200  &&
+            gMarioObject->oPosY <= o->oPosY + 500  &&
+            gMarioObject->oPosY >= o->oPosY - 200 ) {
+            o->oAction = SIDEWAYS_THWOMP_ATTACK;
+            o->oTimer = 0; }
+    }
 }
 
+
 void sideways_thwomp_attack(void) {
-    if (o->oTimer > 50) {
-        o->oVelX = 0.0f;
+    if (o->oTimer > 20) {
+        o->oVelZ = 0.0f;
         o->oTimer = 0;
         o->oAction = SIDEWAYS_THWOMP_AT_END;
     }
-    o->oVelX += -50.0f;
-    o->oPosX += o->oVelX;
+    if (o->oBehParams2ndByte == 0x01) o->oVelZ -= 50.0f;
+    else o->oVelZ += 50.0f;
+    o->oPosZ += o->oVelZ;
  
 }
 
@@ -118,11 +124,19 @@ void sideways_thwomp_at_end(void){
     o->oAction = SIDEWAYS_THWOMP_RETURN;
 }
 void sideways_thwomp_return(void){
-    if (o->oPosX >= o->oHomeX) {
-        o->oPosX = o->oHomeX;
-        o->oAction = SIDEWAYS_THWOMP_WAIT;
-    } else 
-    o->oPosX += 5.0f;
+    if (o->oBehParams2ndByte == 0x01) {
+        if (o->oPosZ >= o->oHomeZ) {
+            o->oPosZ = o->oHomeZ;
+            o->oAction = SIDEWAYS_THWOMP_WAIT;
+        } else 
+        o->oPosZ += 10.0f;
+    } else {
+        if (o->oPosZ <= o->oHomeZ) {
+            o->oPosZ = o->oHomeZ;
+            o->oAction = SIDEWAYS_THWOMP_WAIT;
+        } else 
+        o->oPosZ -= 10.0f;
+    }
     
 }
 
@@ -180,7 +194,7 @@ void bhv_thwimp_init(void) {
     else o->oThwimpType = X_AXIS_THWIMP;
 
     o->oThwimpXRange = GET_BPARAM2(o->oBehParams);
-    o->oThwimpYRange = GET_BPARAM3(o->oBehParams);
+    o->oThwimpYRange = GET_BPARAM3(o->oBehParams)/100;
 }
 void thwimp_act_on_ground(void) {
     if (o->oTimer > 20) {
@@ -235,24 +249,49 @@ void bhv_thwimp_loop(void) {
     cur_obj_call_action_function(sThwimpActions);
 }
 
+enum thwompActions {
+    THWOMP_ACT_WAIT,
+    THWOMP_ACT_ATTACK,
+    THWOMP_ACT_AT_BOTTOM,
+    THWOM_ACT_RISE
+};
 /********************************************
  *********    NEW THWOMPS   *****************
  ********************************************
 */
 void thwomp_act_wait(void) {
-
+    if (    gMarioObject->oPosZ >= o->oPosZ - 200  &&
+            gMarioObject->oPosZ <= o->oPosZ + 200  && // activates the movement
+            gMarioObject->oPosX <= o->oPosX + 200  &&
+            gMarioObject->oPosX >= o->oPosX - 200  &&
+            gMarioObject->oPosY <= o->oPosY + 500  &&
+            gMarioObject->oPosY >= o->oPosY - 200 ) {
+            o->oAction = THWOMP_ACT_ATTACK;
+            o->oTimer = 0; }
 }
 
 void thwomp_act_attack(void) {
-
+    if (o->oTimer > 20) {
+        o->oVelZ = 0.0f;
+        o->oTimer = 0;
+        o->oAction = THWOMP_ACT_AT_BOTTOM;
+    }
+    if (o->oBehParams2ndByte == 0x01) o->oVelZ -= 50.0f;
+    else o->oVelZ += 50.0f;
+    o->oPosZ += o->oVelZ;
 }
 
 void thwomp_act_at_bottom(void) {
-
+    if (o->oTimer > 20)
+    o->oAction = THWOMP_ACT_RISE;
 }
 
 void thwomp_act_rise(void) {
-
+    if (o->oPosY >= o->oHomeY) {
+            o->oPosY = o->oHomeY;
+            o->oAction = THWOMP_ACT_WAIT;
+        } else 
+        o->oPosY += 10.0f;
 }
 
 ObjActionFunc sNewThwompActions[] = {

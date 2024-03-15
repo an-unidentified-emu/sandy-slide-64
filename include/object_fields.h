@@ -1035,9 +1035,10 @@
 
 /* Thwomp */
 #define /*0x0F4*/ oThwompRandomTimer OBJECT_FIELD_S32(0x1B)
+#define oThwompDirection OBJECT_FIELD_S32(0x1F)
 #define oThwimpCycle OBJECT_FIELD_U32(0x1C)
 #define oThwimpXRange OBJECT_FIELD_S32(0x1D)
-#define oThwimpYRange OBJECT_FIELD_S32(0x1E)
+#define oThwimpYRange OBJECT_FIELD_F32(0x1E)
 #define oThwimpType OBJECT_FIELD_S32(0x1F)
 #define oThwompKingCycle OBJECT_FIELD_S32(0x1C)
 
