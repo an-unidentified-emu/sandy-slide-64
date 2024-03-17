@@ -1,10 +1,34 @@
+Lights1 bob_dl_f3dlite_material_002_lights = gdSPDefLights1(
+	0x5F, 0x4C, 0x3,
+	0xC1, 0x9E, 0xF, 0x49, 0x49, 0x49);
 
+Lights1 bob_dl_black_lights = gdSPDefLights1(
+	0x0, 0x0, 0x0,
+	0x0, 0x0, 0x0, 0x49, 0x49, 0x49);
 
+Lights1 bob_dl_f3dlite_material_004_lights = gdSPDefLights1(
+	0x7F, 0x7F, 0x7F,
+	0xFF, 0xFF, 0xFF, 0x49, 0x49, 0x49);
 
+Lights1 bob_dl_f3dlite_material_006_lights = gdSPDefLights1(
+	0x7F, 0x7F, 0x7F,
+	0xFF, 0xFF, 0xFF, 0x49, 0x49, 0x49);
 
+Lights1 bob_dl_f3dlite_material_lights = gdSPDefLights1(
+	0x11, 0x9, 0x2,
+	0x2D, 0x1E, 0x8, 0x49, 0x49, 0x49);
 
+Lights1 bob_dl_inside_slide_lights = gdSPDefLights1(
+	0x7F, 0x56, 0x25,
+	0xFF, 0xB1, 0x53, 0x49, 0x49, 0x49);
 
+Lights1 bob_dl_speed500_lights = gdSPDefLights1(
+	0x7F, 0x0, 0x0,
+	0xFF, 0x0, 0x2, 0x49, 0x49, 0x49);
 
+Lights1 bob_dl_hurt_lights = gdSPDefLights1(
+	0x0, 0x0, 0x0,
+	0x0, 0x0, 0x0, 0x49, 0x49, 0x49);
 
 Gfx bob_dl_blockCity04R_32x32_grayscale_i8_aligner[] = {gsSPEndDisplayList()};
 u8 bob_dl_blockCity04R_32x32_grayscale_i8[] = {
@@ -26813,8 +26837,7 @@ Gfx mat_bob_dl_f3dlite_material_002[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(SHADE, 0, TEXEL0, 0, 1, 0, TEXEL0, 1, SHADE, 0, TEXEL0, 0, 1, 0, TEXEL0, 1),
 	gsSPTexture(65535, 65535, 0, 0, 1),
-    gsSPLightColor(LIGHT_1, 0xc19e0fff),
-    gsSPLightColor(LIGHT_2, 0x5f4c03ff),
+	gsSPSetLights1(bob_dl_f3dlite_material_002_lights),
 	gsDPSetTextureImage(G_IM_FMT_I, G_IM_SIZ_8b_LOAD_BLOCK, 1, bob_dl_blockCity04R_32x32_grayscale_i8),
 	gsDPSetTile(G_IM_FMT_I, G_IM_SIZ_8b_LOAD_BLOCK, 0, 0, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 0, 0),
 	gsDPLoadBlock(7, 0, 0, 1023, 512),
@@ -26954,8 +26977,7 @@ Gfx mat_bob_dl_black[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT, 0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT),
 	gsSPTexture(65535, 65535, 0, 0, 1),
-    gsSPLightColor(LIGHT_1, 0xff),
-    gsSPLightColor(LIGHT_2, 0xff),
+	gsSPSetLights1(bob_dl_black_lights),
 	gsSPEndDisplayList(),
 };
 
@@ -27017,8 +27039,7 @@ Gfx mat_bob_dl_f3dlite_material_004[] = {
 	gsDPSetCombineLERP(TEXEL0, 0, SHADE, 0, 0, 0, 0, ENVIRONMENT, TEXEL0, 0, SHADE, 0, 0, 0, 0, ENVIRONMENT),
 	gsDPSetTextureLUT(G_TT_RGBA16),
 	gsSPTexture(65535, 65535, 0, 0, 1),
-    gsSPLightColor(LIGHT_1, 0xffffffff),
-    gsSPLightColor(LIGHT_2, 0x7f7f7fff),
+	gsSPSetLights1(bob_dl_f3dlite_material_004_lights),
 	gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, bob_dl_thwomp_surface_rgba16_pal_rgba16),
 	gsDPSetTile(0, 0, 0, 256, 5, 0, G_TX_WRAP | G_TX_NOMIRROR, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 0, 0),
 	gsDPLoadTLUTCmd(5, 64),
@@ -27040,8 +27061,7 @@ Gfx mat_bob_dl_f3dlite_material_006[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(TEXEL0, 0, SHADE, 0, 0, 0, 0, ENVIRONMENT, TEXEL0, 0, SHADE, 0, 0, 0, 0, ENVIRONMENT),
 	gsSPTexture(65535, 65535, 0, 0, 1),
-    gsSPLightColor(LIGHT_1, 0xffffffff),
-    gsSPLightColor(LIGHT_2, 0x7f7f7fff),
+	gsSPSetLights1(bob_dl_f3dlite_material_006_lights),
 	gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b_LOAD_BLOCK, 1, bob_dl_thwomp_face_rgba16_rgba16),
 	gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b_LOAD_BLOCK, 0, 0, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 0, 0),
 	gsDPLoadBlock(7, 0, 0, 2047, 256),
@@ -27054,8 +27074,7 @@ Gfx mat_bob_dl_f3dlite_material[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(TEXEL0, 0, TEXEL0, SHADE, TEXEL0, 0, TEXEL0, SHADE, TEXEL0, 0, TEXEL0, SHADE, TEXEL0, 0, TEXEL0, SHADE),
 	gsSPTexture(65535, 65535, 0, 0, 1),
-    gsSPLightColor(LIGHT_1, 0x2d1e08ff),
-    gsSPLightColor(LIGHT_2, 0x110902ff),
+	gsSPSetLights1(bob_dl_f3dlite_material_lights),
 	gsSPEndDisplayList(),
 };
 
@@ -27207,8 +27226,7 @@ Gfx mat_bob_dl_inside_slide[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT, 0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT),
 	gsSPTexture(65535, 65535, 0, 0, 1),
-    gsSPLightColor(LIGHT_1, 0xffb153ff),
-    gsSPLightColor(LIGHT_2, 0x7f5625ff),
+	gsSPSetLights1(bob_dl_inside_slide_lights),
 	gsSPEndDisplayList(),
 };
 
@@ -27216,8 +27234,7 @@ Gfx mat_bob_dl_speed500[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT, 0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT),
 	gsSPTexture(65535, 65535, 0, 0, 1),
-    gsSPLightColor(LIGHT_1, 0xff0002ff),
-    gsSPLightColor(LIGHT_2, 0x7f0000ff),
+	gsSPSetLights1(bob_dl_speed500_lights),
 	gsSPEndDisplayList(),
 };
 
@@ -27225,8 +27242,7 @@ Gfx mat_bob_dl_hurt[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT, 0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT),
 	gsSPTexture(65535, 65535, 0, 0, 1),
-    gsSPLightColor(LIGHT_1, 0xff),
-    gsSPLightColor(LIGHT_2, 0xff),
+	gsSPSetLights1(bob_dl_hurt_lights),
 	gsSPEndDisplayList(),
 };
 

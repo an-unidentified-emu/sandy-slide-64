@@ -78,6 +78,7 @@ const LevelScript level_bob_entry[] = {
 		OBJECT(MODEL_1UP, -9351, 9705, -10101, 0, 0, 0, 0x00000000, bhvGreenCoin),
 		OBJECT(MODEL_NONE, 7369, -3037, -13530, 0, 0, 0, (6 << 16), bhvHiddenGreenCoinStar),
 		OBJECT(MODEL_NONE, 8777, -4125, -13472, 0, 0, 0, (70 << 24) | (2 << 16), bhvWarp),
+		OBJECT(MODEL_NEW_THWOMP, -6011, -3809, 8810, 0, 90, 0, 0x00000000, bhvNewThwomp),
 		OBJECT(MODEL_NEW_THWOMP, -1158, -1472, 8810, 0, 90, 0, 0x00000000, bhvSidewaysThwomp),
 		OBJECT(MODEL_NEW_THWOMP, -1581, -1757, 9902, 0, 90, 0, (0x01 << 16), bhvSidewaysThwomp),
 		OBJECT(MODEL_NEW_THWOMP, -2114, -1997, 8810, 0, 90, 0, 0x00000000, bhvSidewaysThwomp),
