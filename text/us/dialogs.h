@@ -19,10 +19,13 @@ those. There are a few \n\
 movement changes that \n\
 I've made to make this \n\
 more fun.\n\
-Firsties now have a 2 \n\
-frame window and are \n\
+You can now hit firsties\n\
+the frame before and after\n\
+a normal firstie giving \n\
+3 frames to hit them.\n\
+They are \n\
 required at some points\n\
-in the hack.\n\
+in the hack. \n\
 \n\
 Also, there are 45 degree\n\
 wall kicks.\n\
