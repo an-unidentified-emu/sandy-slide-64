@@ -3,19 +3,12 @@
 void bhv_bowser_bomb_loop(void) {
     struct Object *Thwomp = cur_obj_nearest_object_with_behavior(bhvThwompKing);
     if (o->oTimer >30) {
-        spawn_object(o, MODEL_BOWSER_FLAMES, bhvBowserBombExplosion);
+        spawn_object_with_scale(o, MODEL_EXPLOSION, bhvBowserBombExplosion, 500);
         create_sound_spawner(SOUND_GENERAL_BOWSER_BOMB_EXPLOSION);
         set_camera_shake_from_point(SHAKE_POS_LARGE, o->oPosX, o->oPosY, o->oPosZ);
         o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
         Thwomp->oAction = 3;
         Thwomp->oTimer = 0;
-    }
-
-    if (o->oInteractStatus & INT_STATUS_HIT_MINE) {
-        spawn_object(o, MODEL_BOWSER_FLAMES, bhvBowserBombExplosion);
-        create_sound_spawner(SOUND_GENERAL_BOWSER_BOMB_EXPLOSION);
-        set_camera_shake_from_point(SHAKE_POS_LARGE, o->oPosX, o->oPosY, o->oPosZ);
-        o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
     }
     o->oPosZ -= 100;
     o->oPosY += 100;

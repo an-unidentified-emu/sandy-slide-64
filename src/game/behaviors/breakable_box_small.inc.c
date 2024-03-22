@@ -31,6 +31,10 @@ void small_breakable_box_spawn_dust(void) {
 void small_breakable_box_act_move(void) {
     struct Object *Thwomp = cur_obj_nearest_object_with_behavior(bhvThwompKing);
     s8 mask;
+    if(Thwomp == NULL) {
+        obj_mark_for_deletion(o);
+        return;
+    }
     switch(Thwomp->oThwompKingCycle) { //for objects in more than one section, bparam2 is checked for its binary value and each bit represents a phase 011 would mean be active in the first 2 phases
         case 0: mask = 0x01; break;
         case 1: mask = 0x02; break;

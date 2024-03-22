@@ -3,7 +3,9 @@ enum THWOMP_KING_ACTIONS{
     MARIO_ON_UPPER_SLOPE,
     MARIO_ON_LOWER_SLOPE,
     HIT_INITIATE,
-    HIT
+    HIT,
+    DEFEATED,
+    SPAWN_STAR
 };
 void bhv_thwomp_king_init(void){}
 
@@ -37,7 +39,14 @@ void mario_on_lower_slope(void){
 
 void hit_initiate(void){
     if (o->oPosY < o->oHomeY) o->oPosY += 200;
-    else o->oAction = HIT;
+    else {o->oAction = HIT;
+    o->oThwompKingCycle++;
+        if(o->oThwompKingCycle >= 1) {
+            o->oAction = DEFEATED;
+            gCamera->cutscene = CUTSCENE_NONE;
+            gCamera->mode = CAMERA_MODE_SLIDE_HOOT;
+        }
+    }
 }
 void hit(void){
     if (o->oTimer < 60) o->oPosY -= 200;
@@ -45,10 +54,32 @@ void hit(void){
     if(o->oTimer >= 60) {
         set_camera_shake_from_point(SHAKE_POS_MASSIVE, gMarioObject->oPosX+(random_sign()*50), gMarioObject->oPosY+(random_sign()*50), gMarioObject->oPosZ+50);
         cur_obj_play_sound_2(SOUND_OBJ_THWOMP);
+        gCamera->cutscene = CUTSCENE_SLIDING_DOORS_OPEN;
     }
     if(gMarioCurrentRoom == 1) {
         o->oAction = MARIO_ON_UPPER_SLOPE;
-        o->oThwompKingCycle++;
+    }
+}
+
+void defeated(void){
+    if (cur_obj_update_dialog(MARIO_DIALOG_LOOK_UP,
+            (DIALOG_FLAG_TEXT_DEFAULT | DIALOG_FLAG_TIME_STOP_ENABLED), DIALOG_115, 0)) {
+        spawn_object_with_scale(o, MODEL_EXPLOSION, bhvExplosion, 2000);
+        spawn_triangle_break_particles(60, MODEL_DIRT_ANIMATION, 3.0f, 4);
+        cur_obj_disable_rendering();
+        o->oAction = SPAWN_STAR;
+            } else o->oTimer = 0;
+
+}
+
+void spawn_star_defeat(void) {
+    if(o->oTimer > 60) {
+        spawn_default_star(0.0f, 0.0f, 0.0f);
+        cur_obj_play_sound_2(SOUND_OBJ_KING_WHOMP_DEATH);
+        gCamera->cutscene = CUTSCENE_NONE;
+        gCamera->mode = CAMERA_MODE_SLIDE_HOOT;
+        obj_mark_for_deletion(o);
+
     }
 }
 
@@ -73,6 +104,11 @@ void bhv_thwomp_king_loop(void){
         case HIT:
             hit();
             break;
+        case DEFEATED:
+            defeated();
+            break;
+        case SPAWN_STAR:
+            spawn_star_defeat();
     }
     o->oDistanceToMario = 0;
 }

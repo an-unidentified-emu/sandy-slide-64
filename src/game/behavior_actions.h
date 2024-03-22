@@ -26,6 +26,8 @@ void bhv_thwimp_init(void);
 void bhv_thwimp_loop(void);
 void bhv_sideways_thwomp_init(void);
 void bhv_sideways_thwomp_loop(void);
+void bhv_new_thwomp_init(void);
+void bhv_new_thwomp_loop(void);
 void bhv_door_init(void);
 void bhv_door_loop(void);
 void bhv_star_door_loop(void);

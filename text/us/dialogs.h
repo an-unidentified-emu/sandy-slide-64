@@ -13,24 +13,34 @@
 #endif
 
 DEFINE_DIALOG(DIALOG_000, 1, 6, 30, 200, _("\
-Wow! You're smack in the\n\
-middle of the battlefield.\n\
-You'll find the Power\n\
-Stars that Bowser stole\n\
-inside the painting\n\
-worlds.\n\
-First, talk to the\n\
-Bob-omb Buddy. (Press [B]\n\
-to talk.) He'll certainly\n\
-help you out, and so will\n\
-his " COMRADES " in other\n\
-areas.\n\
-To read signs, stop, face\n\
-them and press [B]. Press [A]\n\
-or [B] to scroll ahead. You\n\
-can talk to some other\n\
-characters by facing them\n\
-and pressing [B]."))
+Slide hacks? I've always\n\
+wanted to make one of \n\
+those. There are a few \n\
+movement changes that \n\
+I've made to make this \n\
+more fun.\n\
+Firsties now have a 2 \n\
+frame window and are \n\
+required at some points\n\
+in the hack.\n\
+\n\
+Also, there are 45 degree\n\
+wall kicks.\n\
+\n\
+The final change is that\n\
+when sliding in the air, \n\
+you can now bounce off of \n\
+things. Feel free to try \n\
+things out in the hud.\n\
+\n\
+One last thing, there are\n\
+hurt floors and fast death\n\
+floors in this hack.\n\n\
+Have fun! -Emu\n\
+\n\n\n\
+P.S. The first jump in the\n\
+actual slide is a \n\
+slidekick rollout."))
 
 DEFINE_DIALOG(DIALOG_001, 1, 4, 95, 200, _("\
 Watch out! If you wander\n\

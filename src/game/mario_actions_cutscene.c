@@ -2697,17 +2697,13 @@ s32 act_parabola_setup(struct MarioState *m) {
     z = 3688;
     find_quadratic(y,z,m);
     set_mario_action(m, ACT_PARABOLA, 0);
+    set_cam_angle(CAM_ANGLE_LAKITU);
     return TRUE;
 }
 
 s32 act_parabola(struct MarioState *m) {
-    f32 y,z;
-    y = 4821;
-    z = -5814;
     trajectory_between_a_b(m); // move mario
     m->pos[2] +=100;
-    //gMarioCurrentRoom = 1;
-    //gInstantWarpsOff = TRUE;
     vec3f_copy(m->marioObj->header.gfx.pos, m->pos);
     if (absf(2184-m->pos[1])<300 && absf(3688-m->pos[2])<300) return set_mario_action(m, ACT_IDLE, 0);
     return FALSE;

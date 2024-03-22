@@ -253,32 +253,34 @@ enum thwompActions {
     THWOMP_ACT_WAIT,
     THWOMP_ACT_ATTACK,
     THWOMP_ACT_AT_BOTTOM,
-    THWOM_ACT_RISE
+    THWOMP_ACT_RISE
 };
 /********************************************
  *********    NEW THWOMPS   *****************
  ********************************************
 */
+void bhv_new_thwomp_init(void) {
+    o->oPosY+=500;
+}
 void thwomp_act_wait(void) {
-    if (    gMarioObject->oPosZ >= o->oPosZ - 200  &&
-            gMarioObject->oPosZ <= o->oPosZ + 200  && // activates the movement
-            gMarioObject->oPosX <= o->oPosX + 200  &&
-            gMarioObject->oPosX >= o->oPosX - 200  &&
+    if (    absf(o->oPosZ-gMarioObject->oPosZ) <=  200  &&
+            absf(o->oPosX-gMarioObject->oPosX) <=  200  &&
             gMarioObject->oPosY <= o->oPosY + 500  &&
-            gMarioObject->oPosY >= o->oPosY - 200 ) {
+            gMarioObject->oPosY >= o->oPosY - 1000 ) {
             o->oAction = THWOMP_ACT_ATTACK;
             o->oTimer = 0; }
 }
 
 void thwomp_act_attack(void) {
-    if (o->oTimer > 20) {
-        o->oVelZ = 0.0f;
+    if (o->oPosY <= o->oHomeY) {
+        o->oPosY = o->oHomeY;
+        o->oVelY = 0.0f;
         o->oTimer = 0;
         o->oAction = THWOMP_ACT_AT_BOTTOM;
     }
-    if (o->oBehParams2ndByte == 0x01) o->oVelZ -= 50.0f;
-    else o->oVelZ += 50.0f;
-    o->oPosZ += o->oVelZ;
+    if (o->oBehParams2ndByte == 0x01) o->oVelY += 15.0f;
+    else o->oVelY -= 15.0f;
+    o->oPosY += o->oVelY;
 }
 
 void thwomp_act_at_bottom(void) {
@@ -287,8 +289,8 @@ void thwomp_act_at_bottom(void) {
 }
 
 void thwomp_act_rise(void) {
-    if (o->oPosY >= o->oHomeY) {
-            o->oPosY = o->oHomeY;
+    if (o->oPosY >= o->oHomeY+500) {
+            o->oPosY = o->oHomeY+500;
             o->oAction = THWOMP_ACT_WAIT;
         } else 
         o->oPosY += 10.0f;
