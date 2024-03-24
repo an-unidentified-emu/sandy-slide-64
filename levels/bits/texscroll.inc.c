@@ -21,7 +21,7 @@ void scroll_bits_dl_Cone_001_mesh_layer_1_vtx_0() {
 
 void scroll_bits_dl_Cube_mesh_layer_1_vtx_0() {
 	int i = 0;
-	int count = 164;
+	int count = 136;
 	int height = 32 * 0x20;
 
 	static int currentY = 0;
@@ -49,7 +49,7 @@ void scroll_bits_dl_Cube_mesh_layer_1_vtx_1() {
 	int deltaY;
 	Vtx *vertices = segmented_to_virtual(bits_dl_Cube_mesh_layer_1_vtx_1);
 
-	deltaY = (int)(0.0 * 0x20) % height;
+	deltaY = (int)(-4.0 * 0x20) % height;
 
 	if (absi(currentY) > height) {
 		deltaY -= (int)(absi(currentY) / height) * height * signum_positive(deltaY);
@@ -105,7 +105,7 @@ void scroll_bits_dl_Cone_mesh_layer_1_vtx_0() {
 
 void scroll_bits_dl_Cube_003_mesh_layer_1_vtx_0() {
 	int i = 0;
-	int count = 124;
+	int count = 104;
 	int height = 32 * 0x20;
 
 	static int currentY = 0;
@@ -126,7 +126,7 @@ void scroll_bits_dl_Cube_003_mesh_layer_1_vtx_0() {
 
 void scroll_bits_dl_Cube_003_mesh_layer_1_vtx_1() {
 	int i = 0;
-	int count = 30;
+	int count = 22;
 	int height = 32 * 0x20;
 
 	static int currentY = 0;

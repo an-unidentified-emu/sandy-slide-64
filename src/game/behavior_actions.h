@@ -5,6 +5,7 @@ void spawn_mist_particles_variable(s32 count, s32 offsetY, f32 size);
 void bhv_spawn_star_no_level_exit(u32 params);
 void bhv_door_rendering_loop(void);
 void spawn_triangle_break_particles(s16 numTris, s16 triModel, f32 triSize, s16 triAnimState);
+void spawn_triangle_break_particles_with_rel_pos(s16 numTris, s16 triModel, f32 triSize, s16 triAnimState, struct Object *parent, s16 relativePosX, s16 relativePosY, s16 relativePosZ);
 
 void spawn_mist_from_global(void);
 void clear_particle_flags(u32 flags);

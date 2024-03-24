@@ -62,22 +62,24 @@ void hit(void){
 }
 
 void defeated(void){
+    gCamera->cutscene = CUTSCENE_FACING;
     if (cur_obj_update_dialog(MARIO_DIALOG_LOOK_UP,
             (DIALOG_FLAG_TEXT_DEFAULT | DIALOG_FLAG_TIME_STOP_ENABLED), DIALOG_115, 0)) {
-        spawn_object_with_scale(o, MODEL_EXPLOSION, bhvExplosion, 2000);
-        spawn_triangle_break_particles(60, MODEL_DIRT_ANIMATION, 3.0f, 4);
-        cur_obj_disable_rendering();
+        cur_obj_hide();
         o->oAction = SPAWN_STAR;
             } else o->oTimer = 0;
 
 }
 
 void spawn_star_defeat(void) {
-    if(o->oTimer > 60) {
-        spawn_default_star(0.0f, 0.0f, 0.0f);
+    if(o->oTimer == 0) spawn_object_relative_with_scale(0, 0, 2000, 0, 10000, o, MODEL_BOWSER_FLAMES, bhvBowserBombExplosion);
+    if(o->oTimer <=60) set_camera_shake_from_point(SHAKE_POS_LARGE, 25, -2000, -10000);
+    else {
+        spawn_default_star(0.0f, -4029.0f, -7239.0f);
         cur_obj_play_sound_2(SOUND_OBJ_KING_WHOMP_DEATH);
         gCamera->cutscene = CUTSCENE_NONE;
         gCamera->mode = CAMERA_MODE_SLIDE_HOOT;
+        gMarioState->action = ACT_IDLE;
         obj_mark_for_deletion(o);
 
     }

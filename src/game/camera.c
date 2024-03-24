@@ -3752,9 +3752,9 @@ s32 update_camera_hud_status(struct Camera *c) {
     s16 status = CAM_STATUS_NONE;
 
     if (c->cutscene != CUTSCENE_NONE
-        || ((gPlayer1Controller->buttonDown & R_TRIG) && cam_select_alt_mode(0) == CAM_SELECTION_FIXED)) {
+        || ((gPlayer1Controller->buttonDown & R_TRIG) && cam_select_alt_mode(0) == CAM_SELECTION_FIXED) && gCurrLevelNum != LEVEL_BITS) {
         status |= CAM_STATUS_FIXED;
-    } else if (set_cam_angle(0) == CAM_ANGLE_MARIO) {
+    } else if ((set_cam_angle(0) == CAM_ANGLE_MARIO) && gCurrLevelNum != LEVEL_BITS) {
         status |= CAM_STATUS_MARIO;
     } else {
         status |= CAM_STATUS_LAKITU;
@@ -7425,12 +7425,12 @@ void cutscene_snow_hill(struct Camera *c) {
 void cutscene_facing(struct Camera *c) {
     Vec3f marioPos;
     vec3f_copy(marioPos, sMarioCamState->pos);
-    c->pos[1] = marioPos[1];
-    c->pos[2] = marioPos[2];
-    c->pos[0] = marioPos[0];
-    c->focus[2] = DEGREES(0);
-    c->focus[1] = DEGREES(-20);
-    c->focus[0] = DEGREES(0);
+    c->pos[0] = 0;
+    c->pos[1] = 3000;
+    c->pos[2] = -1500;
+    c->focus[0] = 0;
+    c->focus[1] = 3000;
+    c->focus[2] = -10000;
     c->yaw = c->nextYaw = DEGREES(0);
     // marioOffset[0] = the (perpendicular) horizontal distance from the path
     // marioOffset[1] = the vertical distance from the path
