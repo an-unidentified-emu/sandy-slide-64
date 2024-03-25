@@ -60,7 +60,7 @@ const GeoLayout bits_area_1[] = {
 		GEO_OPEN_NODE(),
 			GEO_NODE_ORTHO(100.0000),
 			GEO_OPEN_NODE(),
-				GEO_BACKGROUND(BACKGROUND_DESERT, geo_skybox_main),
+				GEO_BACKGROUND(BACKGROUND_FLAMING_SKY, geo_skybox_main),
 			GEO_CLOSE_NODE(),
 		GEO_CLOSE_NODE(),
 		GEO_ZBUFFER(1),

@@ -1931,6 +1931,7 @@ void check_hurt_floor(struct MarioState *m) {
         play_sound(SOUND_MARIO_ATTACKED, m->marioObj->header.gfx.cameraToObject);
         if(gCurrLevelNum == LEVEL_BITS)
         take_damage_from_no_interact_object(m, m->floor->force);
+        else m->health = 0x880;
         
         mario_drop_held_object(m);
         mario_stop_riding_object(m);

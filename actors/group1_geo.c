@@ -16,6 +16,5 @@
 
 #include "thwimp/geo.inc.c"
 #include "new_thwomp/geo.inc.c"
-#include "bomb/geo.inc.c"
 #include "spindel/geo.inc.c"
 #include "grindel/geo.inc.c"

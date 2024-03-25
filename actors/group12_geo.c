@@ -12,3 +12,4 @@
 #include "yellow_sphere/geo.inc.c"
 #include "bowser/geo.inc.c"
 #include "impact_smoke/geo.inc.c"
+#include "bomb/geo.inc.c"

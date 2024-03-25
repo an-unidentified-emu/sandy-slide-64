@@ -3751,8 +3751,8 @@ s32 find_c_buttons_pressed(u16 currentState, u16 buttonsPressed, u16 buttonsDown
 s32 update_camera_hud_status(struct Camera *c) {
     s16 status = CAM_STATUS_NONE;
 
-    if (c->cutscene != CUTSCENE_NONE
-        || ((gPlayer1Controller->buttonDown & R_TRIG) && cam_select_alt_mode(0) == CAM_SELECTION_FIXED) && gCurrLevelNum != LEVEL_BITS) {
+    if ((c->cutscene != CUTSCENE_NONE
+        || ((gPlayer1Controller->buttonDown & R_TRIG) && cam_select_alt_mode(0) == CAM_SELECTION_FIXED)) && gCurrLevelNum != LEVEL_BITS) {
         status |= CAM_STATUS_FIXED;
     } else if ((set_cam_angle(0) == CAM_ANGLE_MARIO) && gCurrLevelNum != LEVEL_BITS) {
         status |= CAM_STATUS_MARIO;
@@ -6033,6 +6033,9 @@ struct CameraTrigger sCamCastleGrounds[] = {
 	NULL_TRIGGER
 };
 struct CameraTrigger sCamBitS[] = {
+	NULL_TRIGGER
+};
+struct CameraTrigger sCamWF[] = {
 	NULL_TRIGGER
 };
 struct CameraTrigger *sCameraTriggers[LEVEL_COUNT + 1] = {

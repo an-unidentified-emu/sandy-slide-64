@@ -78,7 +78,8 @@ void bhv_hidden_blue_coin_loop(void) {
 void bhv_blue_coin_switch_loop(void) {
     // The switch's model is 1/3 size.
     cur_obj_scale(3.0f);
-
+    struct Object *thwomp = cur_obj_nearest_object_with_behavior(bhvThwompKing);
+    if (thwomp == NULL) obj_mark_for_deletion(o);
     switch (o->oAction) {
         case BLUE_COIN_SWITCH_ACT_IDLE:
             // If Mario is on the switch and has ground-pounded,
