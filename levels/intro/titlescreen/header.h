@@ -1,0 +1,10 @@
+extern u8 titlescreen_RMGP01_2fe3bc7e_14_ci4[];
+extern u8 titlescreen_RMGP01_2fe3bc7e_14_pal_rgba16[];
+extern Vtx titlescreen_Text_mesh_vtx_0[2236];
+extern Gfx titlescreen_Text_mesh_tri_0[];
+extern Vtx titlescreen_Text_mesh_vtx_1[600];
+extern Gfx titlescreen_Text_mesh_tri_1[];
+extern Gfx mat_titlescreen_sand[];
+extern Gfx mat_revert_titlescreen_sand[];
+extern Gfx mat_titlescreen_f3dlite_material[];
+extern Gfx titlescreen_Text_mesh[];

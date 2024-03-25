@@ -20,16 +20,16 @@ movement changes that \n\
 I've made to make this \n\
 more fun.\n\
 You can now hit firsties\n\
-the frame before and after\n\
-a normal firstie giving \n\
+the frame before and the\n\
+frame after a normal \n\
+firstie giving you\n\
 3 frames to hit them.\n\
-They are \n\
-required at some points\n\
-in the hack. \n\
+They are required at \n\
+some points in the hack. \n\
 \n\
 Also, there are 45 degree\n\
 wall kicks.\n\
-\n\
+\n\n\
 The final change is that\n\
 when sliding in the air, \n\
 you can now bounce off of \n\
@@ -40,7 +40,7 @@ One last thing, there are\n\
 hurt floors and fast death\n\
 floors in this hack.\n\n\
 Have fun! -Emu\n\
-\n\n\n\
+\n\n\
 P.S. The first jump in the\n\
 actual slide is a \n\
 slidekick rollout."))
