@@ -711,6 +711,7 @@ extern u16 sCButtonsPressed;
 extern struct PlayerCameraState gPlayerCameraState[2];
 extern struct LakituState gLakituState;
 extern s16 gCameraMovementFlags;
+extern s16 sStatusFlags;
 extern s32 gObjCutsceneDone;
 extern struct Camera *gCamera;
 extern struct Object *gCutsceneFocus;

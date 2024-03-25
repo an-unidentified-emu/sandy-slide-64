@@ -40,17 +40,17 @@ void mario_on_lower_slope(void){
 void hit_initiate(void){
     if (o->oPosY < o->oHomeY) o->oPosY += 200;
     else {o->oAction = HIT;
-    o->oThwompKingCycle++;
-        if(o->oThwompKingCycle >= 1) {
-            o->oAction = DEFEATED;
-            gCamera->cutscene = CUTSCENE_NONE;
-            gCamera->mode = CAMERA_MODE_SLIDE_HOOT;
-        }
+        gMarioState->action = ACT_IDLE;
+        o->oThwompKingCycle++;
+        if(o->oThwompKingCycle >= 3) o->oAction = DEFEATED;
+        //gCamera->cutscene = CUTSCENE_NONE;
+        //gCamera->mode = CAMERA_MODE_SLIDE_HOOT;
     }
 }
 void hit(void){
     if (o->oTimer < 60) o->oPosY -= 200;
     else if (o->oTimer < 80) o->oPosY += 600;
+    if(o->oTimer == 59) gPlayer1Controller->buttonPressed |= D_CBUTTONS;
     if(o->oTimer >= 60) {
         set_camera_shake_from_point(SHAKE_POS_MASSIVE, gMarioObject->oPosX+(random_sign()*50), gMarioObject->oPosY+(random_sign()*50), gMarioObject->oPosZ+50);
         cur_obj_play_sound_2(SOUND_OBJ_THWOMP);

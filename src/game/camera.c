@@ -2394,7 +2394,7 @@ void mode_slide_camera(struct Camera *c) {
         sMarioGeometry.currFloorType == SURFACE_NO_CAM_COL_SLIPPERY) {
         mode_lakitu_camera(c);
     } else {
-        if (gPlayer1Controller->buttonPressed & U_CBUTTONS) {
+        if ((gPlayer1Controller->buttonPressed & U_CBUTTONS)&& gCurrLevelNum != LEVEL_BITS) {
             gCameraMovementFlags |= CAM_MOVE_C_UP_MODE;
         }
         c->nextYaw = update_slide_camera(c);
@@ -4655,7 +4655,7 @@ void radial_camera_input(struct Camera *c) {
     }
 
     // Zoom in / enter C-Up
-    if (gPlayer1Controller->buttonPressed & U_CBUTTONS) {
+    if ((gPlayer1Controller->buttonPressed & U_CBUTTONS)&& gCurrLevelNum != LEVEL_BITS) {
         if (gCameraMovementFlags & CAM_MOVE_ZOOMED_OUT) {
             gCameraMovementFlags &= ~CAM_MOVE_ZOOMED_OUT;
             play_sound_cbutton_up();
@@ -4690,7 +4690,7 @@ void handle_c_button_movement(struct Camera *c) {
     s16 cSideYaw;
 
     // Zoom in
-    if (gPlayer1Controller->buttonPressed & U_CBUTTONS) {
+    if ((gPlayer1Controller->buttonPressed & U_CBUTTONS) && gCurrLevelNum != LEVEL_BITS) {
         if (c->mode != CAMERA_MODE_FIXED && (gCameraMovementFlags & CAM_MOVE_ZOOMED_OUT)) {
             gCameraMovementFlags &= ~CAM_MOVE_ZOOMED_OUT;
             play_sound_cbutton_up();
