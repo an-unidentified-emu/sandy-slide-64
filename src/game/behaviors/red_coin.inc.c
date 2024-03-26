@@ -105,6 +105,21 @@ static struct ObjectHitbox sGreenCoinHitbox = {
 };
 
 /**
+ * Green coin's hitbox details.
+ */
+static struct ObjectHitbox sGreenRingHitbox = {
+    /* interactType:      */ INTERACT_COIN,
+    /* downOffset:        */ 0,
+    /* damageOrCoinValue: */ 0,
+    /* health:            */ 0,
+    /* numLootCoins:      */ 0,
+    /* radius:            */ 125,
+    /* height:            */ 200,
+    /* hurtboxRadius:     */ 0,
+    /* hurtboxHeight:     */ 0,
+};
+
+/**
  * Red coin initialization function. Sets the coin's hitbox and parent object.
  */
 void bhv_green_coin_init(void) {
@@ -115,7 +130,8 @@ void bhv_green_coin_init(void) {
     } else {
         o->parentObj = NULL;
     }
-    obj_set_hitbox(o, &sGreenCoinHitbox);
+    if(o->oBehParams2ndByte == 0) obj_set_hitbox(o, &sGreenRingHitbox);
+    else obj_set_hitbox(o, &sGreenCoinHitbox);
 }
 
 #define HIDDEN_GREEN_COIN_ACT_INACTIVE 0

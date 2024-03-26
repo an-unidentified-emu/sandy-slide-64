@@ -86,7 +86,7 @@ const LevelScript level_wf_entry[] = {
 		OBJECT(MODEL_GREEN_COIN, 2054, 7174, -3728, 0, 0, 0, (3 << 16), bhvGreenCoin),
 		OBJECT(MODEL_GREEN_COIN, 2038, 6244, -1427, 0, 0, 0, (4 << 16), bhvGreenCoin),
 		OBJECT(MODEL_GREEN_COIN, 1572, 1551, 6465, 0, 0, 0, (5 << 16), bhvGreenCoin),
-		OBJECT(MODEL_1UP, -9351, 9705, -10101, 0, 0, 0, 0x00000000, bhvGreenCoin),
+		OBJECT(MODEL_GREEN_RING, -9351, 9791, -10101, 0, 0, 0, 0x00000000, bhvGreenCoin),
 		OBJECT(MODEL_NONE, 7369, -3037, -13530, 0, 0, 0, (6 << 16), bhvHiddenGreenCoinStar),
 		OBJECT(MODEL_NONE, 8777, -4117, -13472, 0, 0, 0, (100 << 24) | (2 << 16), bhvWarp),
 		OBJECT(MODEL_NEW_THWOMP, -6011, -3809, 8810, 0, 0, 0, 0x00000000, bhvNewThwomp),

@@ -64,7 +64,7 @@ void hit(void){
 void defeated(void){
     gCamera->cutscene = CUTSCENE_FACING;
     if (cur_obj_update_dialog(MARIO_DIALOG_LOOK_UP,
-            (DIALOG_FLAG_TEXT_DEFAULT | DIALOG_FLAG_TIME_STOP_ENABLED), DIALOG_115, 0)) {
+            (DIALOG_FLAG_TEXT_DEFAULT | DIALOG_FLAG_TIME_STOP_ENABLED), DIALOG_114, 0)) {
         cur_obj_hide();
         o->oAction = SPAWN_STAR;
             } else o->oTimer = 0;

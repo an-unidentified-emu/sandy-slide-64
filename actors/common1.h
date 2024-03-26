@@ -300,4 +300,8 @@ extern const Gfx wooden_signpost_seg3_dl_0302DCD0[];
 extern const Gfx wooden_signpost_seg3_dl_0302DD08[];
 extern const Collision wooden_signpost_seg3_collision_0302DD80[];
 
+#include "green_ring/header.h"
+
+#include "green_ring/geo_header.h"
+
 #endif
