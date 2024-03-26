@@ -113,7 +113,7 @@ static struct ObjectHitbox sGreenRingHitbox = {
     /* damageOrCoinValue: */ 0,
     /* health:            */ 0,
     /* numLootCoins:      */ 0,
-    /* radius:            */ 125,
+    /* radius:            */ 200,
     /* height:            */ 200,
     /* hurtboxRadius:     */ 0,
     /* hurtboxHeight:     */ 0,

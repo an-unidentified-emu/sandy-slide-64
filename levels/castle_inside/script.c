@@ -35,14 +35,6 @@ const LevelScript level_castle_inside_entry[] = {
 	LOAD_RAW(0xc, _group11_geoSegmentRomStart, _group11_geoSegmentRomEnd), 
 	ALLOC_LEVEL_POOL(),
 	MARIO(MODEL_MARIO, 0x00000001, bhvMario), 
-	LOAD_MODEL_FROM_GEO(MODEL_WARP_PIPE, warp_pipe_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_WARP_PIPE, warp_pipe_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_WARP_PIPE, warp_pipe_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_WARP_PIPE, warp_pipe_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_WARP_PIPE, warp_pipe_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_WARP_PIPE, warp_pipe_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_WARP_PIPE, warp_pipe_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_WARP_PIPE, warp_pipe_geo), 
 
 	/* Fast64 begin persistent block [level commands] */
 	LOAD_MODEL_FROM_GEO(MODEL_WARP_PIPE,         warp_pipe_geo),
@@ -59,7 +51,7 @@ const LevelScript level_castle_inside_entry[] = {
 		MARIO_POS(0x01, 0, 0, 200, 0),
 		TERRAIN(castle_inside_area_1_collision),
 		MACRO_OBJECTS(castle_inside_area_1_macro_objs),
-		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_GRASS),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_WRIN),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
