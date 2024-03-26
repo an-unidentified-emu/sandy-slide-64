@@ -551,7 +551,7 @@
 
 #define MODEL_GREEN_COIN                  0xE2        // red_coin_geo
 #define MODEL_GREEN_COIN_NO_SHADOW        0xE3        // red_coin_no_shadow
-#define MODEL_GREEN_RING                  0xE4
+#define MODEL_GREEN_RING                  0xE5
 
 #ifdef IA8_30FPS_COINS
 #define MODEL_SILVER_COIN                 0xE2        // silver_coin_geo

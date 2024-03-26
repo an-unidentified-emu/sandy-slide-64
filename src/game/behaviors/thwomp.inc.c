@@ -222,7 +222,7 @@ void thwimp_act_jump(void) {
     if (o->oPosY < o->oHomeY){
             o->oPosY = o->oHomeY;
             o->oTimer = 0;
-    cur_obj_play_sound_2(SOUND_OBJ_THWOMP);
+    //cur_obj_play_sound_2(SOUND_OBJ_THWOMP);
          o->oAction = THWIMP_ACT_ON_GROUND;
     }
     else {
